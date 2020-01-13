@@ -1,10 +1,11 @@
 /*
+*Create a start or enter screen 
+
 Need to input story text to screen
 Need story text to change based on where the player is in the story / save text to a variable that can be changed
 Store game text in an object so it can be called easyly
 *Make text load in small sections
 
-Need hero inner thougths text - create dynamically 
 
 *Option to enter hero name
 *Option to pick geneder or ask their geneder/ story text will explain who they are now
@@ -12,18 +13,27 @@ Need hero inner thougths text - create dynamically
 
 Need to input text on buttons
 Need first two buttons to receive new text options with each scene
-Need a way to pick 4 item choices - hidden buttons? dom generatored buttons that dissapear after
-Need a place to store the choices 
-After receiving the list of items to collect, inventory system will appear to the left of the screen- on canvas? or beside it
-As each item is aquired, the name of the item on the list will change color indicating the receipt of the item
+Need event listener on buttons 
 
+
+Need a way to pick 4 item choices - hidden buttons? dom generatored buttons that dissapear after
+Need a place to store the choices - array
+After receiving the list of items to collect, inventory system will appear to the left of the screen- on canvas? or beside it
+As each item is aquired, the name of the item on the list will change color indicating the receipt of the item - arr.push
+
+Need a game flow/
 
 Can
 
 */
 
 var gameText = document.getElementById('gameText');
+var firstButn = document.querySelector('[data-butn="firstButn"]');
+var secondButn = document.querySelector('[data-butn="secoundButn"]');
+var questItems = [];
 
+firstButn.innerText = 'Right';
+secondButn.innerText = 'Left';
 
 var storyText = {
     beginning : {
@@ -38,10 +48,13 @@ var storyText = {
 };
 
 var heroText = {
-    first: 'Should I check the kitchen or go outside?',
-    secound: 'This candy looks good! Should I take it with me or eat it?',
-    third: 'Nothing left here. Time to go.',
-    fourth: 'Where to start, Right or Left',
+    castleStart : {
+        first: 'Should I check the kitchen or go outside?',
+        secound: 'This candy looks good! Should I take it with me or eat it?',
+        third: 'Nothing left here. Time to go.',
+        fourth: 'Where to start, Right or Left',
+
+    },
     leftPath : {
         
     },

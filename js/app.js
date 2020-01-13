@@ -1,5 +1,8 @@
 /*
 *Create a start or enter screen 
+    hide game behind background image
+    add enter button
+    onclick of the button show game
 
 Need to input story text to screen
 Need story text to change based on where the player is in the story / save text to a variable that can be changed
@@ -27,14 +30,49 @@ Can
 
 */
 
-var gameText = document.getElementById('gameText');
+var questItems = [];
+
+// buttons
 var firstButn = document.querySelector('[data-butn="firstButn"]');
 var secondButn = document.querySelector('[data-butn="secoundButn"]');
-var questItems = [];
+var returnButn = document.querySelector('[data-butn="return"]');
+
+
+var buttonEventsOne = {
+    optionOne: 'Leave Castle',
+    optionTwo: 'Take Item',
+    optionThree: '',
+    optionFour: '',
+    optionFive: '',
+    optionSix: '',
+    optionSeven: '',
+    optionEight: '',
+    optionNine: '',
+    optionTen: '',
+    optionEleven: '',
+    optionTweleve: '',
+};
+var buttonEventsTwo = {
+    optionOne: 'Check Out Kitchen',
+    optionTwo: 'Return to other room',
+    optionThree: '',
+    optionFour: '',
+    optionFive: '',
+    optionSix: '',
+    optionSeven: '',
+    optionEight: '',
+    optionNine: '',
+    optionTen: '',
+    optionEleven: '',
+    optionTweleve: '',
+
+};
 
 firstButn.innerText = 'Right';
 secondButn.innerText = 'Left';
 
+// story 
+var gameScript = document.getElementById('gameScript');
 var storyText = {
     beginning : {
         first: 'Welcome Hero! We are glad you arrived here safely. Sorry but there is not much time to explain. Here is a list of items you must retrieve. All of the items can be found within a 20 meter perimeter of this castle.',
@@ -50,7 +88,7 @@ var storyText = {
 var heroText = {
     castleStart : {
         first: 'Should I check the kitchen or go outside?',
-        secound: 'This candy looks good! Should I take it with me or eat it?',
+        second: 'This candy looks good! Should I take it with me or eat it?',
         third: 'Nothing left here. Time to go.',
         fourth: 'Where to start, Right or Left',
 
@@ -64,7 +102,7 @@ var heroText = {
     
 }
 
-
+// game flow
 gameText.innerText = storyText.beginning.second;
 
 // canvas

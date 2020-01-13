@@ -66,3 +66,9 @@ var heroText = {
 
 
 gameText.innerText = storyText.beginning.second;
+
+// canvas
+var canvas = document.querySelector('canvas');
+
+canvas.width = 800;
+canvas.height = 300;

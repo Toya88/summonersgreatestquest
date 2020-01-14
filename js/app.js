@@ -29,6 +29,12 @@ Need a game flow/
 Can
 
 */
+// canvas
+var canvas = document.querySelector('canvas');
+
+canvas.width = 800;
+canvas.height = 300;
+
 
 var questItems = [];
 
@@ -38,59 +44,76 @@ var secondButn = document.querySelector('[data-butn="secoundButn"]');
 var returnButn = document.querySelector('[data-butn="return"]');
 
 
-var buttonEventsOne = {
-    optionOne: 'Leave Castle',
-    optionTwo: 'Take Item',
-    optionThree: '',
-    optionFour: '',
-    optionFive: '',
-    optionSix: '',
-    optionSeven: '',
-    optionEight: '',
-    optionNine: '',
-    optionTen: '',
-    optionEleven: '',
-    optionTweleve: '',
-};
-var buttonEventsTwo = {
-    optionOne: 'Check Out Kitchen',
-    optionTwo: 'Return to other room',
-    optionThree: '',
-    optionFour: '',
-    optionFive: '',
-    optionSix: '',
-    optionSeven: '',
-    optionEight: '',
-    optionNine: '',
-    optionTen: '',
-    optionEleven: '',
-    optionTweleve: '',
+var buttonEventsOne = [
+    'Continue',
+    'Leave Castle',
+    'Take Item',
+];
 
-};
+var buttonEventsTwo = [
+    'Check Out the Kitchen',
+    'Return to other room',
+];
 
-firstButn.innerText = 'Right';
-secondButn.innerText = 'Left';
+firstButn.innerText = buttonEventsOne[0];
+secondButn.innerText = buttonEventsTwo[0];
 
 // story 
 var gameScript = document.getElementById('gameScript');
 var storyText = {
     beginning : {
-        first: 'Welcome Hero! We are glad you arrived here safely. Sorry but there is not much time to explain. Here is a list of items you must retrieve. All of the items can be found within a 20 meter perimeter of this castle.',
-        second: 'Here is a bag to hold all of the items for your quest. You may choose 3 of these 5 objects to take with you. Choose wisely!',
-        third: 'You are now ready for your quest. Once you have collected all the items on the list, return at once to this castle! Here is your list - now go and return quickly!!',
-        fourth: '',
+        alstaffLineOne: 'Welcome Hero! We are glad you arrived here safely. Sorry but there is not much time to explain. Here is a list of items you must retrieve. All of the items can be found within a 20 meter perimeter of this castle.',
+        alstaffLineTwo: 'Here is a bag to hold all of the items for your quest. You may choose 3 of these 5 objects to take with you. Choose wisely!',
+        alstaffLineThree: 'You are now ready for your quest. Once you have collected all the items on the list, return at once to this castle! Here is your list - now go and return quickly!!',
+        alstaffLineFour: '',
         fifth: 'Would you',
 
     },
+    littleBoy : {
+        ericLineOne: '',
+        ericLineOne: '',
+        ericLineOne: '',
+        ericLineOne: '',
+        ericLineOne: '',
+        ericLineOne: '',
+        ericLineOne: '',
+        ericLineOne: '',
+        ericLineOne: '',
+    },
+    witch : {
+        bloodtideLineOne: '',
+        bloodtideLineOne: '',
+        bloodtideLineOne: '',
+        bloodtideLineOne: '',
+        bloodtideLineOne: '',
+        bloodtideLineOne: '',
+        bloodtideLineOne: '',
+        bloodtideLineOne: '',
+        bloodtideLineOne: '',
+        bloodtideLineOne: '',
+        bloodtideLineOne: '',
+    },
+    ruler : {
+        rulerLineOne: '',
+        rulerLineOne: '',
+        rulerLineOne: '',
+        rulerLineOne: '',
+        rulerLineOne: '',
+        rulerLineOne: '',
+        rulerLineOne: '',
+        rulerLineOne: '',
+        rulerLineOne: '',
+        rulerLineOne: '',
+    }
     
 };
 
 var heroText = {
     castleStart : {
-        first: 'Should I check the kitchen or go outside?',
-        second: 'This candy looks good! Should I take it with me or eat it?',
-        third: 'Nothing left here. Time to go.',
-        fourth: 'Where to start, Right or Left',
+        heroLineOne: 'Should I check the kitchen or go outside?',
+        heroLineTwo: 'This candy looks good! Should I take it with me or eat it?',
+        heroLineThree: 'Nothing left here. Time to go.',
+        heroLineFour: 'Where to start, Right or Left',
 
     },
     leftPath : {
@@ -103,10 +126,5 @@ var heroText = {
 }
 
 // game flow
-gameText.innerText = storyText.beginning.second;
+gameScript.innerText = storyText.beginning.second;
 
-// canvas
-var canvas = document.querySelector('canvas');
-
-canvas.width = 800;
-canvas.height = 300;

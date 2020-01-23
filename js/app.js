@@ -31,142 +31,267 @@ Can
 *add a 'Hmmm' with no context in the area where the phone is
 */
 // canvas
-var canvas = document.querySelector('canvas');
 
-canvas.width = 800;
-canvas.height = 300;
+function one () {
+    see();
+};
+
+function enter() {
+    var enterButn = document.createElement("button");
+    enterButn.setAttribute('class', 'enterBtn');
+    enterButn.id = 'enter';
+    var getWindow = document.getElementById('window');
+    getWindow.appendChild(enterButn);
+    enterButn.innerText = 'Start';
+    enterButn.addEventListener('click', one);
+    // console.log(enterButn);   
+}
+enter();
+
+function see() {
+    let getWindow = document.getElementById('window');
+    getWindow.setAttribute('class', 'window');
+    let enterButn = document.getElementById("enter");
+    // enterButn.removeEventListener('click', one());
+    // enterButn.style.visibility = 'hidden';
+    enterButn.innerText = "continue";
+    var gameScript = document.getElementById('gameScript');
+    let counter = 0;
+    enterButn.addEventListener('click', function (e) {
+        if (counter <= storyStart.length) {
+            console.log(e); 
+            gameScript.innerText = storyStart[counter];
+            counter++;
+            console.log(counter);
+            
+        }
+    })
+};
+
+var storyStart = 
+     [
+        'Today starts off like any other.',
+        'You wake you, shower, get dressed, and head to school.',
+        'While walking after you notice a gray cloud in the sky.',
+        'You think to yourself, Maybe I\'ll get to see that weird phenomon where it only rains in one spot.',
+        'You put your phone in your hand and stare at the cloud in enticaption of the rain.', 
+        'After a few minutes you give up and keep waking, but you turn to check the cloud ever few minutes.', 
+        'You begin to notice something strange. You ask yourself, is that cloud following me?'
+    ]
+    
 
 
 var questItems = [];
 
 // buttons
-var firstButn = document.querySelector('[data-butn="firstButn"]');
-var secondButn = document.querySelector('[data-butn="secoundButn"]');
-var returnButn = document.querySelector('[data-butn="return"]');
+// var firstButn = document.querySelector('[data-butn="firstButn"]');
+// var secondButn = document.querySelector('[data-butn="secoundButn"]');
+// var returnButn = document.querySelector('[data-butn="return"]');
 
-
-var buttonEventsOne = [
-    'Continue',
-    'Leave Castle',
-    'Take Item',
-    'Use Hand\'s',
-    'Go up Hill',
-    'Walk further up the trail',
-    'Take Big Table',
-
-];
-
-var buttonEventsTwo = [
-    'Check Out the Kitchen',
-    'Return',
-    'Use Knife',
-    'Go to edge of field',
-    'Put on gloves',
-    'Take Small Table',
-];
-
-firstButn.innerText = buttonEventsOne[0];
-secondButn.innerText = buttonEventsTwo[0];
-
-// story 
-var gameScript = document.getElementById('gameScript');
-var storyText = {
-    beginning : {
-        alstaffWelcomeLine: 'Welcome Hero! We are glad you arrived here safely. Sorry but there is not much time to explain. Here is a list of items you must retrieve. All of the items can be found within a 20 meter perimeter of this castle.',
-        alstaffBagLine: 'Here is a bag to hold all of the items for your quest. You may choose 3 of these 5 objects to take with you. Choose wisely!',
-        alstaffPictureLine: 'Here are pictures of the items to help you identify them.',
-        alstaffReadyLine: 'You are now ready for your quest. Once you have collected all the items on the list, return at once to this castle! Here is your list - now go and return quickly!!',
-        fifth: 'Would you',
-
-    },
-    littleBoy : {
-        ericHiLine: 'Hi there.',
-        eric: 'I thought I was grabbing candy but these are Super Hot Reaper Peppers',
-        eric: 'I really want some candy',
-        eric: 'Yes, Yes, Yes!',
-        eric: 'Here you go.',
-        eric: 'Ummmm, this is so good',
-        eric: 'I hope my mom does not find out I took those peppers',
-        eric: '',
-        eric: '',
-    },
-    witch : {
-        bloodtide: 'My my my, What a beautiful creature you are.',
-        bloodtide: 'Why yes I do ',
-        bloodtide: 'But it\'s not free you know',
-        bloodtide: 'My what a wonderful and exotic top you have on',
-        bloodtide: 'Give it to me, Give it to me and I will give you the ___',
-        bloodtide: 'Yes, yes, yes what a wonderful garment. OH and it smells soooooo gooooooood!',
-        bloodtide: 'Go away now!!',
-        bloodtide: '',
-        bloodtide: '',
-        bloodtide: '',
-        bloodtide: '',
-    },
-    ruler : {
-        ruler: '',
-        ruler: '',
-        ruler: '',
-        ruler: '',
-        ruler: '',
-        ruler: '',
-        ruler: '',
-        ruler: '',
-        ruler: '',
-        ruler: '',
-    },
-    end : {
-
-    }
+// // firstButn.addEventListener('click', function(){
+// //     var click = true;
+// //     console.log('you');
+// //     //pass choose to game flow 
     
-};
+// // });
 
-var heroText = {
-    castleStart : {
-        heroCastleOne: 'Should I check the kitchen or go outside?',
-        heroCastleTwo: 'This candy looks good! Should I take it with me or eat it?',
-        heroCastleThree: 'Nothing left here. Time to go.',
-        heroCastleFour: 'Where to start, Right or Left',
+// secondButn.addEventListener('click', function(){
+//     console.log('are');
+    
+// });
 
-    },
+// returnButn.addEventListener('click', function(){
+//     console.log('here');
+    
+// });
 
-    leftPath : {
-        lPathOne: 'Wow this field is beautiful. Wait is this the Honey Sweet hair of the land?',
-        lPathTwo: 'It is! The stock is pretty thick. Don\'t think I use my hands to get it.',
-        lPathThree: 'Hmm, to tough. I think I should cut it with something.',
-        lPathFour: 'Yes, I got it.',
-        lPathFive: 'That\'s a pretty steep hill. I wonder what\'s at the end of this field.',
-        search: {
-            fieldEnd: 'There\'s nothing here. Darn I wasted 20 minutes getting here.',
-            hillTop: 'I made it to the top of the hill',
-            hillFind: 'I see the Sun Baked Sponge. This kinda look\'s like... No I couldn\'t be.',
-            hillGrab: 'Look\'s so soft. Should I just grab it or use something?',
-            hillHand: 'Ouch it burns. It\'s getting hotter!! Oh My **** &%$!! My hands are are on fire. I can\'t put them out!!! My clothes are on fire!! Why Can\'t I put it out!! WWWHHHHYYYYY!!',
-            hillGloves: 'Now I have the Sun Baked Sponge',
-        },
 
-    },
-    rightPath : {
-        forestPath: 'What I wonderful forest. So many plants I\'ve never seen before',
-        forestRock: 'There is a rock in front of the Super Rare Blue Fairies-Table. I should search over there where those rocks are.',
-        forestFind: 'Jackpot! I found 2 Fairies-Tables. One seems to be bigger then the other. Which one should I take?',
-        smallTable: 'Guess I\'ll take the smaller one.',
-        bigTable: 'Definitely taking the big table.',
+// var buttonEventsOne = [
+//     'Continue',
+//     'Leave Castle',
+//     'Take Item',
+//     'Use Hand\'s',
+//     'Go up Hill',
+//     'Walk further up the trail',
+//     'Take Big Table',
+
+// ];
+
+// var buttonEventsTwo = [
+//     'Check Out the Kitchen',
+//     'Return',
+//     'Use Knife',
+//     'Go to edge of field',
+//     'Put on gloves',
+//     'Take Small Table',
+// ];
+
+// firstButn.innerText = buttonEventsOne[0];
+// secondButn.innerText = buttonEventsTwo[0];
+
+// let state = {};
+
+// // story 
+// var gameScript = document.getElementById('gameScript');
+// //place story in order - formate needs to match so you can make 1 
+
+// //make a spot to display names and push the key/names in to it - name.innertext = key
+
+//         //   text: 'Take the goo',
+//         //   setState: { blueGoo: true },
+//         //   nextText: 2
         
-    },
-    castleEnd : {
-        returnToCastleI : 'I think it\'s time to '
-    },
-    returnAfterDeath : {
-        returnOne: 'Did I die?',
-        returnBoy: 'Am I a boy?',
-        returnGirl: 'Am I a girl?',
-        returnName: 'Wait why does she already know my name?',
+// var storyText = [
+//     {
+//         id: 1,
+//         text: 'Today starts off like any other. You wake you, shower, get dressed, and head to school. While walking after you notice a gray cloud in the sky. You think to yourself, Maybe I\'ll get to see that weird phenomon where it only rains in one spot. You put your phone in your hand and stare at the cloud in enticaption of the rain. After a few minutes you give up and keep waking, but you turn to check the cloud ever few minutes. You begin to notice something strange. You ask yourself, is that cloud following me?  ',
+//         options: [
+//             {
+//             text = buttonEventsOne[0],
+//             nextText: 2
+//             }
+//         ]
+//     },
+//     {
+//         id: 2,
+//         text: 'The cloud is definitly following you. And it is getting closer. You turn and stair and right then the cloud launches a gray funnel at you. Before you have time to run, you are sucked up into the cloud. The exterme force of the spinning causes you to pass out.',
+//         options: [
+//             {
+//             text = buttonEventsOne[0],
+//             nextText: 3
+//             }
+//         ]
+//     },
+//     {
+//         id: 3,
+//         text: 'You awaken to her a strange women standing in front of you. Before you can ask questions she begins to talk', 
+//         option: [
+//             {
+//                 text = buttonEventsOne[0],
+//                 nextText: 3
+//             }
+//         ]
+//     },
+//     {
+//         id: 4,
+//         text: 'Welcome Hero! We are glad you arrived here safely. Sorry but there is not much time to explain. Here is a list of items you must retrieve. All of the items can be found within a 20 meter perimeter of this castle.',
+//         'Here is a bag to hold all of the items for your quest. You may choose 3 of these 5 objects to take with you. Choose wisely!',
+//         options: [
+//             {
+//                 text = "",
+//                 nextText: 4
+            
+//             }
+//         ]
+//     },
+//     {
+//         id: 5,
+//         text: 'What should I choose?',
+//         options: [
+//             {
+//                 text = "",
+//                 nextText: 6
+//                 //need a function to pick items and set taken to true - a setState function
+//             }
+//         ]
+//     },
+//     {
+//         id: 6,
+//         text: 'Here are pictures of the items to help you identify them.',
+//         'You are now ready for your quest. Once you have collected all the items on the list, return at once to this castle! Here is your list - now go and return quickly!!',
+//         options: [
+//             {
+//                 text = "",
+//                 nextText: 7
+            
+//             }
+//         ]
+//     },
+//     {
+//         id:8,
+//         text: 'Wow ok. This quest must be really important. Hmm, what\'s on the list? I can see another room. Look '
+//         //list appear on the side of the screen
+//     }
+//     castleStart = {
+//         heroCastleOne: 'Should I check the kitchen or go outside?',
+//         heroCastleTwo: 'This candy looks good! Should I take it with me or eat it?',
+//         heroCastleThree: 'Nothing left here. Time to go.',
+//         heroCastleFour: 'Where to start, Right or Left',
 
-    }
+//     },
+
+//     littleBoy = {
+//         ericHiLine: 'Hi there.',
+//         eric: 'I thought I was grabbing candy but these are Super Hot Reaper Peppers',
+//         eric: 'I really want some candy',
+//         eric: 'Yes, Yes, Yes!',
+//         eric: 'Here you go.',
+//         eric: 'Ummmm, this is so good',
+//         eric: 'I hope my mom does not find out I took those peppers',
+//         eric: '',
+//         eric: '',
+//     },
+//     witch = {
+//         bloodtide: 'My my my, What a beautiful creature you are.',
+//         bloodtide: 'Why yes I do ',
+//         bloodtide: 'But it\'s not free you know',
+//         bloodtide: 'My what a wonderful and exotic top you have on',
+//         bloodtide: 'Give it to me, Give it to me and I will give you the ___',
+//         bloodtide: 'Yes, yes, yes what a wonderful garment. OH and it smells soooooo gooooooood!',
+//         bloodtide: 'Go away now!!',
+//         bloodtide: '',
+//         bloodtide: '',
+//         bloodtide: '',
+//         bloodtide: '',
+//     },
+//     leftPath = {
+//         lPathOne: 'Wow this field is beautiful. Wait is this the Honey Sweet hair of the land?',
+//         lPathTwo: 'It is! The stock is pretty thick. Don\'t think I use my hands to get it.',
+//         lPathThree: 'Hmm, to tough. I think I should cut it with something.',
+//         lPathFour: 'Yes, I got it.',
+//         lPathFive: 'That\'s a pretty steep hill. I wonder what\'s at the end of this field.',
+//         search: {
+//             fieldEnd: 'There\'s nothing here. Darn I wasted 20 minutes getting here.',
+//             hillTop: 'I made it to the top of the hill',
+//             hillFind: 'I see the Sun Baked Sponge. This kinda look\'s like... No I couldn\'t be.',
+//             hillGrab: 'Look\'s so soft. Should I just grab it or use something?',
+//             hillHand: 'Ouch it burns. It\'s getting hotter!! Oh My **** &%$!! My hands are are on fire. I can\'t put them out!!! My clothes are on fire!! Why Can\'t I put it out!! WWWHHHHYYYYY!!',
+//             hillGloves: 'Now I have the Sun Baked Sponge',
+//         },
+
+//     },
+//     rightPath = {
+//         forestPath: 'What I wonderful forest. So many plants I\'ve never seen before',
+//         forestRock: 'There is a rock in front of the Super Rare Blue Fairies-Table. I should search over there where those rocks are.',
+//         forestFind: 'Jackpot! I found 2 Fairies-Tables. One seems to be bigger then the other. Which one should I take?',
+//         smallTable: 'Guess I\'ll take the smaller one.',
+//         bigTable: 'Definitely taking the big table.',
+        
+//     },
+//     castleEnd = {
+//         returnToCastleI : 'I think it\'s time to '
+//     },
+//     returnAfterDeath = {
+//         returnOne: 'Did I die?',
+//         returnBoy: 'Am I a boy?',
+//         returnGirl: 'Am I a girl?',
+//         returnName: 'Wait why does she already know my name?',
+
+//     },
+//     ruler = {
+//         ruler: '',
+//         ruler: '',
+//         ruler: '',
+//         ruler: '',
+//         ruler: '',
+//         ruler: '',
+//         ruler: '',
+//         ruler: '',
+//         ruler: '',
+//         ruler: '',
+//     },
+//     // end : {
+
+//     // }
     
-}
-
-// game flow
-gameScript.innerText = storyText.beginning.alstaffWelcomeLine;
-
+// ];

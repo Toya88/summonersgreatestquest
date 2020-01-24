@@ -32,9 +32,9 @@ Can
 */
 // canvas
 
-function one () {
-    see();
-};
+// function one () {
+//     see();
+// };
 
 function enter() {
     var enterButn = document.createElement("button");
@@ -43,42 +43,175 @@ function enter() {
     var getWindow = document.getElementById('window');
     getWindow.appendChild(enterButn);
     enterButn.innerText = 'Start';
-    enterButn.addEventListener('click', one);
+    enterButn.addEventListener('click', see)
+    
+    
     // console.log(enterButn);   
 }
 enter();
 
+
 function see() {
+    var enterButn = document.getElementById('enter');
+    enterButn.style.visibility = 'hidden';
+
+    var newButn = document.createElement('button');
+    newButn.id = 'newButn';
+    newButn.className = 'enterBtn';
     let getWindow = document.getElementById('window');
     getWindow.setAttribute('class', 'window');
-    let enterButn = document.getElementById("enter");
-    // enterButn.removeEventListener('click', one());
-    // enterButn.style.visibility = 'hidden';
-    enterButn.innerText = "continue";
+    
+    getWindow.appendChild(newButn);
+    newButn.innerText = "continue1";
     var gameScript = document.getElementById('gameScript');
-    let counter = 0;
-    enterButn.addEventListener('click', function (e) {
-        if (counter <= storyStart.length) {
-            console.log(e); 
-            gameScript.innerText = storyStart[counter];
-            counter++;
-            console.log(counter);
+    
+    gameScript.innerText = storyStart[0][0];
+    var img = document.getElementById('img');
+    img.src = images[0];
+    console.log(storyStart[0]);
+    
+    let counterOuter = 0;
+    let counterInner = 0;
+
+    newButn.addEventListener('click', clickCounter, false);
+    function clickCounter() {
+        
+        if (counterInner < storyStart[counterOuter].length - 1) {
+            counterInner++;
+            gameScript.innerText = storyStart[counterOuter][counterInner];
+            console.log(counterOuter); 
+            console.log(counterInner);
             
+        } else {
+            counterOuter++;
+            counterInner = 0;
+            
+            console.log(counterOuter); 
+            console.log(counterInner);
+            gameScript.innerText = storyStart[counterOuter][counterInner];
+            img.src = images[counterOuter]
+            if (storyStart[counterOuter][counterInner] === 'Choose 3 items') {
+                $('#append').css('visibility','visible');
+                newButn.removeEventListener('click', clickCounter, false);
+                newButn.addEventListener('click', nextEvent, false);
+                
+            }
         }
-    })
+       
+    }
+    function nextEvent() {
+        console.log('dickface');
+        
+        questItems.length = 0;
+        
+        var knife = $("#knife").is(':checked');
+        var gloves = $("#gloves").is(':checked');
+        var shirt = $("#shirt").is(':checked');
+        var axe = $("#axe").is(':checked');
+        var coins = $("#3coins").is(':checked');
+        
+        if (knife) {
+            questItems.push('knife');
+        }
+        if (gloves) {
+            questItems.push('gloves');
+        }
+        if (shirt) {
+            questItems.push('shirt');
+        }
+        if (axe) {
+            questItems.push('axe');
+        }
+        if (coins) {
+            questItems.push('3coins');
+        }
+        var click = false;
+        if (questItems.length === 3) {
+            click = true;
+        } else {
+           alert('Must choose 3 items') 
+        }
+        if (click) {
+            newButn.removeEventListener('click', nextEvent, false);
+            newButn.addEventListener('click', clickCounter, false);
+             $('#append').css('visibility','hidden');
+
+            if (counterInner < storyStart[counterOuter].length - 1) {
+            counterInner++;
+            gameScript.innerText = storyStart[counterOuter][counterInner];
+            
+            
+        } else {
+            counterOuter++;
+            counterInner = 0;
+
+            gameScript.innerText = storyStart[counterOuter][counterInner];
+            img.src = images[counterOuter]
+
+            }
+
+        }
+    }
 };
 
+
+// function createItems() {
+//     let knife = document.createElement('input');
+//     knife.type = 'checkbox';
+//     knife.id = 'knife';
+//     knife.class = 'knife';
+//     knife.checked = false;
+//     var text = document.createTextNode('checkbox');
+//     document.getElementById()
+//     knife.appendChild('append');
+
+//     let gloves = document.createElement('input');
+//     gloves.type = 'checkbox';
+//     gloves.id = 'gloves';
+//     gloves.class = 'gloves';
+// }
+
+// function setItems() {
+    
+// }
+
+// 0 = 
 var storyStart = 
      [
+         [
         'Today starts off like any other.',
         'You wake you, shower, get dressed, and head to school.',
         'While walking after you notice a gray cloud in the sky.',
         'You think to yourself, Maybe I\'ll get to see that weird phenomon where it only rains in one spot.',
         'You put your phone in your hand and stare at the cloud in enticaption of the rain.', 
         'After a few minutes you give up and keep waking, but you turn to check the cloud ever few minutes.', 
-        'You begin to notice something strange. You ask yourself, is that cloud following me?'
+        'You begin to notice something strange. You ask yourself, is that cloud following me?',
+        'The cloud is definitly following you. And it is getting closer.',
+        'You turn and stair and right then the cloud launches a gray funnel at you.',
+        'Before you have time to run, you are sucked up into the cloud.', 
+        'The exterme force of the spinning causes you to pass out.',
+        
+         ],
+         [
+            'You awaken to a strange women standing in front of you. Before you can ask questions she begins to talk', 
+            'Welcome Hero! We are glad you arrived here safely. Sorry but there is not much time to explain.',
+             'Here is a list of items you must retrieve. All of the items can be found within a 20 meter perimeter of this castle.',
+        'Here is a bag to hold all of the items for your quest. You may choose 3 of these 5 objects to take with you. Choose wisely!'
+         ],
+         [
+             'Choose 3 items'
+         ],
+         [
+            'Should I check the kitchen or go outside?'
+         ]
     ]
-    
+
+var images = [
+    'media/gameFonts.png',
+    'media/gameFonts.png',
+    'media/gameFonts.png',
+    'media/gameFonts.png'
+]
 
 
 var questItems = [];
@@ -164,7 +297,7 @@ var questItems = [];
 //     },
 //     {
 //         id: 3,
-//         text: 'You awaken to her a strange women standing in front of you. Before you can ask questions she begins to talk', 
+//         text: 'You awaken to a strange women standing in front of you. Before you can ask questions she begins to talk', 
 //         option: [
 //             {
 //                 text = buttonEventsOne[0],

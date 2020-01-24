@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Summoner's Greatest Quest</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Emilys+Candy|Mystery+Quest&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/app.js" defer></script>
@@ -17,18 +18,25 @@
         <div class="wrapper">
             <div id="window" class="noWindow">
                 <h1 class="title">Summoner's Greatest Quest</h1>
-                <p class="gameScript" id="gameScript"></p>
+
+                <p class="" id="gameScript"></p>
         
-                <!-- <img class="gameImage" src="https://via.placeholder.com/100x100" alt="placeholder image"> -->
-                <!-- <canvas></canvas> -->
+                <div class="storage" id="storage">
+                    <img id="img" src="" alt=""> 
+                    
+            </div>
+            <div class="append" id="append" >
+                <form action="">
+                    <input id="knife" type="checkbox" name="knife" value="knife"><label for="">Knife</label>
+                    <input id="gloves" type="checkbox" name="gloves" value="gloves"><label for="">gloves</label>
+                    <input id="shirt" type="checkbox" name="shirt" value="shirt"><label for="">shirt</label>
+                    <input id="axe" type="checkbox" name="axe" value="axe"><label for="">axe</label>
+                    <input id="3coins" type="checkbox" name="3coins" value="3coins"><label for="">3coins</label>
+                    
+                </form>
+            </div>
                 
-                <div class="buttons" id="buttons">
-                    <!-- <button id="butn-one" data-butn="firstButn"></button>
-                    <button id="butn-two" data-butn="secoundButn"></button>
-                    <button id="butn-three" data-butn="return">Return to Castle</button> -->
-                </div>
-        
-                <div class="storage" id="storage"></div>
+                    
     
             </div>
         </div>
@@ -36,3 +44,9 @@
     
 </body>
 </html>
+
+<!-- <div class="buttons" id="buttons">
+    <!-- <button id="butn-one" data-butn="firstButn"></button>
+        <button id="butn-two" data-butn="secoundButn"></button>
+        <button id="butn-three" data-butn="return">Return to Castle</button> -->
+    </div> -->

@@ -49,20 +49,39 @@ function enter() {
     // console.log(enterButn);   
 }
 enter();
-
-
+//buttons need to be gobal? 
+for (let i = 0; i < 4; i++) {
+    var button = document.createElement('button');
+    button.className = 'buttons';
+    button.id = 'butn' + i;
+    let getWindow = document.getElementById('window');
+    getWindow.appendChild(button);
+    $('.buttons').css('visibility','hidden');
+    // console.log(button);
+    
+}
 function see() {
     var enterButn = document.getElementById('enter');
     enterButn.style.visibility = 'hidden';
 
-    var newButn = document.createElement('button');
-    newButn.id = 'newButn';
-    newButn.className = 'enterBtn';
-    let getWindow = document.getElementById('window');
-    getWindow.setAttribute('class', 'window');
+        let getWindow = document.getElementById('window');
+        getWindow.setAttribute('class', 'window');
+        getWindow.appendChild(button);
+        $('.buttons').css('visibility','hidden');
     
-    getWindow.appendChild(newButn);
-    newButn.innerText = "continue1";
+
+    $('#butn0').css('visibility','visible');
+    var next = document.getElementById('butn0');
+    next.innerText = 'Continue';
+    // var newButn = document.createElement('button');
+    // newButn.id = 'newButn';
+    // newButn.className = 'enterBtn';
+    // let getWindow = document.getElementById('window');
+    // getWindow.setAttribute('class', 'window');
+
+    // getWindow.appendChild(newButn);
+    // newButn.innerText = "continue1";
+
     var gameScript = document.getElementById('gameScript');
     
     gameScript.innerText = storyStart[0][0];
@@ -73,7 +92,7 @@ function see() {
     let counterOuter = 0;
     let counterInner = 0;
 
-    newButn.addEventListener('click', clickCounter, false);
+    next.addEventListener('click', clickCounter, false);
     function clickCounter() {
         
         if (counterInner < storyStart[counterOuter].length - 1) {
@@ -82,7 +101,7 @@ function see() {
             console.log(counterOuter); 
             console.log(counterInner);
             
-        } else {
+        } else if (counterInner >= storyStart[counterOuter].length - 1){
             counterOuter++;
             counterInner = 0;
             
@@ -92,15 +111,18 @@ function see() {
             img.src = images[counterOuter]
             if (storyStart[counterOuter][counterInner] === 'Choose 3 items') {
                 $('#append').css('visibility','visible');
-                newButn.removeEventListener('click', clickCounter, false);
-                newButn.addEventListener('click', nextEvent, false);
+                next.removeEventListener('click', clickCounter, false);
+                next.addEventListener('click', nextEvent, false);
                 
             }
-        }
+            
+         } else if (storyStart[counterOuter] === 3){
+             firstDecision();
+         }
        
     }
     function nextEvent() {
-        console.log('dickface');
+       
         
         questItems.length = 0;
         
@@ -132,8 +154,9 @@ function see() {
            alert('Must choose 3 items') 
         }
         if (click) {
-            newButn.removeEventListener('click', nextEvent, false);
-            newButn.addEventListener('click', clickCounter, false);
+            next.removeEventListener('click', nextEvent, false);
+            next.addEventListener('click', clickCounter, false);
+            
              $('#append').css('visibility','hidden');
 
             if (counterInner < storyStart[counterOuter].length - 1) {
@@ -147,35 +170,44 @@ function see() {
 
             gameScript.innerText = storyStart[counterOuter][counterInner];
             img.src = images[counterOuter]
-
+            
             }
 
         }
     }
+    // an eventlistener that removes the contiune button, adds the two other buttons
 };
-
-
-// function createItems() {
-//     let knife = document.createElement('input');
-//     knife.type = 'checkbox';
-//     knife.id = 'knife';
-//     knife.class = 'knife';
-//     knife.checked = false;
-//     var text = document.createTextNode('checkbox');
-//     document.getElementById()
-//     knife.appendChild('append');
-
-//     let gloves = document.createElement('input');
-//     gloves.type = 'checkbox';
-//     gloves.id = 'gloves';
-//     gloves.class = 'gloves';
-// }
-
-// function setItems() {
+        function firstDecision() {
+            let getWindow = document.getElementById('window');
+        getWindow.setAttribute('class', 'window');
+        
+        
+            if (storyStart[counterOuter][counterInner] === 'Should I check the kitchen or go outside?') {
+                //hide contiune button, run next event listener 
+                $('#butn0').css('visibility','hidden');
+                $('#butn1').css('visibility','visible');
+                
+                var secondButn = document.getElementById('butn1');
+                secondButn.innerText = 'Leave Castle';
+                getWindow.appendChild(secondButn);
+                
+                $('#butn2').css('visibility','visible');
+                var thirdButn = document.getElementById('butn2');
+                thirdButn.innerText = 'Go to Kitchen';
+                getWindow.appendChild(thirdButn);
     
-// }
+                secondButn.addEventListener('click', function () {
+                    //run the click counter funtion? need new counter for new array
+                });
+                thirdButn.addEventListener('click', function () {
+                    //do
+                });
+            }
+        }
 
-// 0 = 
+// need a new eventlistener that creates 2 buttons, switch arrays based on click
+// add buttons to newButn eventlistener, but hide them until needed - 4 buttons - contuine, return, choice1, choice2
+
 var storyStart = 
      [
          [
@@ -215,6 +247,13 @@ var images = [
 
 
 var questItems = [];
+// will i need am image array for each section
+var firstChoose = [
+    //kitchen
+    [
+        
+    ]
+]
 
 // buttons
 // var firstButn = document.querySelector('[data-butn="firstButn"]');

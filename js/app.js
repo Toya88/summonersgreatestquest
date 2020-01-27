@@ -91,7 +91,9 @@ function see() {
     
     let counterOuter = 0;
     let counterInner = 0;
-
+    // need a way to switch out story arrays in click counter - constructor or switch funtion 
+    //clickcounter needs to take an array as a paramoter - textArr
+    //if outercounter == 2 textArr == 
     next.addEventListener('click', clickCounter, false);
     function clickCounter() {
         
@@ -109,17 +111,17 @@ function see() {
             console.log(counterInner);
             gameScript.innerText = storyStart[counterOuter][counterInner];
             img.src = images[counterOuter]
-            if (storyStart[counterOuter][counterInner] === 'Choose 3 items') {
-                $('#append').css('visibility','visible');
-                next.removeEventListener('click', clickCounter, false);
-                next.addEventListener('click', nextEvent, false);
-                
-            }
             
-         } else if (storyStart[counterOuter] === 3){
-             firstDecision();
-         }
-       
+        } 
+        
+        //remove so clickcounter can bd called anywhere - turn eventlisiten with 
+        if (storyStart[counterOuter][counterInner] === 'Choose 3 items') {
+            $('#append').css('visibility','visible');
+            next.removeEventListener('click', clickCounter, false);
+            next.addEventListener('click', nextEvent, false);
+            
+            
+        }
     }
     function nextEvent() {
        
@@ -154,56 +156,87 @@ function see() {
            alert('Must choose 3 items') 
         }
         if (click) {
-            next.removeEventListener('click', nextEvent, false);
-            next.addEventListener('click', clickCounter, false);
             
-             $('#append').css('visibility','hidden');
-
+      
             if (counterInner < storyStart[counterOuter].length - 1) {
-            counterInner++;
-            gameScript.innerText = storyStart[counterOuter][counterInner];
-            
-            
-        } else {
-            counterOuter++;
-            counterInner = 0;
-
-            gameScript.innerText = storyStart[counterOuter][counterInner];
-            img.src = images[counterOuter]
-            
-            }
+                counterInner++;
+                gameScript.innerText = storyStart[counterOuter][counterInner];
+                
+                
+            } else if (counterInner >= storyStart[counterOuter].length - 1){
+                counterOuter++;
+                counterInner = 0;
+                
+               
+                gameScript.innerText = storyStart[counterOuter][counterInner];
+                img.src = images[counterOuter]
+                
+                $('#append').css('visibility','hidden');
+                next.removeEventListener('click', nextEvent, false);
+                next.addEventListener('click', clickCounter, false);
+                if (storyStart[counterOuter][counterInner] === 'Should I check the kitchen or go outside?') {
+                        
+                    firstDecision();
+                }
+            } 
 
         }
     }
     // an eventlistener that removes the contiune button, adds the two other buttons
-};
-        function firstDecision() {
-            let getWindow = document.getElementById('window');
-        getWindow.setAttribute('class', 'window');
-        
-        
-            if (storyStart[counterOuter][counterInner] === 'Should I check the kitchen or go outside?') {
-                //hide contiune button, run next event listener 
-                $('#butn0').css('visibility','hidden');
-                $('#butn1').css('visibility','visible');
-                
-                var secondButn = document.getElementById('butn1');
-                secondButn.innerText = 'Leave Castle';
-                getWindow.appendChild(secondButn);
-                
-                $('#butn2').css('visibility','visible');
-                var thirdButn = document.getElementById('butn2');
-                thirdButn.innerText = 'Go to Kitchen';
-                getWindow.appendChild(thirdButn);
+    function firstDecision() {
+        let getWindow = document.getElementById('window');
+    getWindow.setAttribute('class', 'window');
     
-                secondButn.addEventListener('click', function () {
-                    //run the click counter funtion? need new counter for new array
-                });
-                thirdButn.addEventListener('click', function () {
-                    //do
-                });
-            }
-        }
+    let counterOuter = 0;
+    let counterInner = 0;
+    $('#butn0').css('visibility','hidden');
+    $('#butn1').css('visibility','visible');
+    
+    var secondButn = document.getElementById('butn1');
+    secondButn.innerText = 'Leave Castle';
+    getWindow.appendChild(secondButn);
+    
+    $('#butn2').css('visibility','visible');
+    var thirdButn = document.getElementById('butn2');
+    thirdButn.innerText = 'Go to Kitchen';
+    getWindow.appendChild(thirdButn);
+
+    secondButn.addEventListener('click', function () {
+        //run the click counter funtion? need new counter for new array
+    });
+    thirdButn.addEventListener('click', function () {
+        //do
+    });
+    }
+};
+        // function firstDecision() {
+        //     let getWindow = document.getElementById('window');
+        // getWindow.setAttribute('class', 'window');
+        
+        // let counterOuter = 0;
+        // let counterInner = 0;
+        //     if (storyStart[counterOuter][counterInner] === 'Should I check the kitchen or go outside?') {
+        //         //hide contiune button, run next event listener 
+        //         $('#butn0').css('visibility','hidden');
+        //         $('#butn1').css('visibility','visible');
+                
+        //         var secondButn = document.getElementById('butn1');
+        //         secondButn.innerText = 'Leave Castle';
+        //         getWindow.appendChild(secondButn);
+                
+        //         $('#butn2').css('visibility','visible');
+        //         var thirdButn = document.getElementById('butn2');
+        //         thirdButn.innerText = 'Go to Kitchen';
+        //         getWindow.appendChild(thirdButn);
+    
+        //         secondButn.addEventListener('click', function () {
+        //             //run the click counter funtion? need new counter for new array
+        //         });
+        //         thirdButn.addEventListener('click', function () {
+        //             //do
+        //         });
+        //     }
+        // }
 
 // need a new eventlistener that creates 2 buttons, switch arrays based on click
 // add buttons to newButn eventlistener, but hide them until needed - 4 buttons - contuine, return, choice1, choice2

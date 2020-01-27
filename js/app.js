@@ -94,30 +94,48 @@ function see() {
     // need a way to switch out story arrays in click counter - constructor or switch funtion 
     //clickcounter needs to take an array as a paramoter - textArr
     //if outercounter == 2 textArr == 
+    //.bind
     next.addEventListener('click', clickCounter, false);
-    function clickCounter() {
-        
-        if (counterInner < storyStart[counterOuter].length - 1) {
+    
+    function clickCounter(textArr) {
+       // write a function to change the array's - use varible set to true or false for each one
+      
+       var startText = true;
+       var kitchenText = false;
+       var ericText = false;
+
+
+
+       if (startText == true) {
+        textArr = storyStart;
+        startText = false;
+        // kitchenText = true;
+    } else
+     if(kitchenText == false) {
+        textArr = kitchen;
+    }
+
+        if (counterInner < textArr[counterOuter].length - 1) {
             counterInner++;
-            gameScript.innerText = storyStart[counterOuter][counterInner];
+            gameScript.innerText = textArr[counterOuter][counterInner];
             console.log(counterOuter); 
             console.log(counterInner);
             
-        } else if (counterInner >= storyStart[counterOuter].length - 1){
+        } else if (counterInner >= textArr[counterOuter].length - 1){
             counterOuter++;
             counterInner = 0;
             
             console.log(counterOuter); 
             console.log(counterInner);
-            gameScript.innerText = storyStart[counterOuter][counterInner];
+            gameScript.innerText = textArr[counterOuter][counterInner];
             img.src = images[counterOuter]
             
         } 
         
         //remove so clickcounter can bd called anywhere - turn eventlisiten with 
-        if (storyStart[counterOuter][counterInner] === 'Choose 3 items') {
+        if (textArr[counterOuter][counterInner] === 'Choose 3 items') {
             $('#append').css('visibility','visible');
-            next.removeEventListener('click', clickCounter, false);
+            next.removeEventListener('click', clickCounter(), false);
             next.addEventListener('click', nextEvent, false);
             
             
@@ -157,28 +175,36 @@ function see() {
         }
         if (click) {
             
-      
-            if (counterInner < storyStart[counterOuter].length - 1) {
-                counterInner++;
-                gameScript.innerText = storyStart[counterOuter][counterInner];
-                
-                
-            } else if (counterInner >= storyStart[counterOuter].length - 1){
-                counterOuter++;
-                counterInner = 0;
-                
-               
-                gameScript.innerText = storyStart[counterOuter][counterInner];
-                img.src = images[counterOuter]
+            
                 
                 $('#append').css('visibility','hidden');
                 next.removeEventListener('click', nextEvent, false);
                 next.addEventListener('click', clickCounter, false);
-                if (storyStart[counterOuter][counterInner] === 'Should I check the kitchen or go outside?') {
+                if (gameScript.innerText === 'Should I check the kitchen or go outside?') {
                         
                     firstDecision();
                 }
-            } 
+            // if (counterInner < storyStart[counterOuter].length - 1) {
+            //     counterInner++;
+            //     gameScript.innerText = storyStart[counterOuter][counterInner];
+                
+                
+            // } else if (counterInner >= storyStart[counterOuter].length - 1){
+            //     counterOuter++;
+            //     counterInner = 0;
+                
+               
+            //     gameScript.innerText = storyStart[counterOuter][counterInner];
+            //     img.src = images[counterOuter]
+                
+            //     $('#append').css('visibility','hidden');
+            //     next.removeEventListener('click', nextEvent, false);
+            //     next.addEventListener('click', clickCounter, false);
+            //     if (storyStart[counterOuter][counterInner] === 'Should I check the kitchen or go outside?') {
+                        
+            //         firstDecision();
+            //     }
+            // } 
 
         }
     }
@@ -201,12 +227,8 @@ function see() {
     thirdButn.innerText = 'Go to Kitchen';
     getWindow.appendChild(thirdButn);
 
-    secondButn.addEventListener('click', function () {
-        //run the click counter funtion? need new counter for new array
-    });
-    thirdButn.addEventListener('click', function () {
-        //do
-    });
+    secondButn.addEventListener('click', clickCounter);
+    thirdButn.addEventListener('click', clickCounter);
     }
 };
         // function firstDecision() {
@@ -275,40 +297,43 @@ var images = [
     'media/gameFonts.png',
     'media/gameFonts.png',
     'media/gameFonts.png',
-    'media/gameFonts.png'
+    'media/gameFonts.png',
 ]
 
 
 var questItems = [];
 // will i need am image array for each section
-var firstChoose = [
+var kitchen = [
     //kitchen
     [
-        
+        "You look on the table and see small round balls in colorful wrapping",
+        'You smell them and they smell sweet',
+        'You think "Wow candy from another world! and put a few in your pocket"',
+        'There does not seem to be any thing else here. Time to go outside',
+    ]
+]
+var outside = [
+    [
+        'You step outside and see two paths. As you get closer you notice a little boy a the junction of the path.',
+        'The little boy speaks to you.',
+        'Hi, my name is Eric.',
+        'Look what I got. OOOHHHH NOOOO!',
+        'I thought it was candy, but this is...',
+        'You look at the items in the boys hand and recognize them from the picture',
+        'They\'re reaper pepper\'s!',
+        'Eric: I thought these were candy. I can\'t eat this.',
+    ],
+    [
+        'You say to Eric: I have candy. I\'ll trade you for the peppers. ',
+        'Yes, I love candy.',
+        'You give Eric the candy and he give\'s you the peppers!'
+    ]
+    [
+        'Should I go down the right path or left path?'
     ]
 ]
 
-// buttons
-// var firstButn = document.querySelector('[data-butn="firstButn"]');
-// var secondButn = document.querySelector('[data-butn="secoundButn"]');
-// var returnButn = document.querySelector('[data-butn="return"]');
 
-// // firstButn.addEventListener('click', function(){
-// //     var click = true;
-// //     console.log('you');
-// //     //pass choose to game flow 
-    
-// // });
-
-// secondButn.addEventListener('click', function(){
-//     console.log('are');
-    
-// });
-
-// returnButn.addEventListener('click', function(){
-//     console.log('here');
-    
-// });
 
 
 // var buttonEventsOne = [

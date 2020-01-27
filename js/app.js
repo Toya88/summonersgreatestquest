@@ -135,8 +135,6 @@ function see() {
         }
     }
     function nextEvent() {
-       
-        
         questItems.length = 0;
         
         var knife = $("#knife").is(':checked');
@@ -168,60 +166,19 @@ function see() {
         }
         if (click) {
             
-            
-                
-                $('#append').css('visibility','hidden');
-                next.removeEventListener('click', nextEvent, false);
-                // next.addEventListener('click', clickCounter, false);
-                if (gameScript.innerText === 'Should I check the kitchen or go outside?') {
-                        
-                    firstDecision();
-                }
-            // if (counterInner < storyStart[counterOuter].length - 1) {
-            //     counterInner++;
-            //     gameScript.innerText = storyStart[counterOuter][counterInner];
-                
-                
-            // } else if (counterInner >= storyStart[counterOuter].length - 1){
-            //     counterOuter++;
-            //     counterInner = 0;
-                
-               
-            //     gameScript.innerText = storyStart[counterOuter][counterInner];
-            //     img.src = images[counterOuter]
-                
-            //     $('#append').css('visibility','hidden');
-            //     next.removeEventListener('click', nextEvent, false);
-            //     next.addEventListener('click', clickCounter, false);
-            //     if (storyStart[counterOuter][counterInner] === 'Should I check the kitchen or go outside?') {
-                        
-            //         firstDecision();
-            //     }
-            // } 
+            $('#append').css('visibility','hidden');
+            next.removeEventListener('click', nextEvent, false);
+            // next.addEventListener('click', clickCounter, false);
+            if (gameScript.innerText === 'Should I check the kitchen or go outside?') {
+                    
+                firstDecision();
+            } 
 
         }
     }
     
     function firstDecision() {
-        function clickCounter2(textArr) {
-
-            if (counterInner < textArr[counterOuter].length - 1) {
-                counterInner++;
-                gameScript.innerText = textArr[counterOuter][counterInner];
-                console.log(counterOuter); 
-                console.log(counterInner);
-                
-            } else if (counterInner >= textArr[counterOuter].length - 1){
-                counterOuter++;
-                counterInner = 0;
-                
-                console.log(counterOuter); 
-                console.log(counterInner);
-                gameScript.innerText = textArr[counterOuter][counterInner];
-                img.src = images[counterOuter]
-                
-            } 
-        }
+       
         let getWindow = document.getElementById('window');
     getWindow.setAttribute('class', 'window');
     
@@ -239,39 +196,34 @@ function see() {
     thirdButn.innerText = 'Go to Kitchen';
     getWindow.appendChild(thirdButn);
 
-    secondButn.addEventListener('click', clickCounter2(kitchen));
-    thirdButn.addEventListener('click', clickCounter2(outside));
+    secondButn.addEventListener('click', clickCounter2('kitchen'));
+    thirdButn.addEventListener('click', clickCounter2('outside'));
+    }
+    if (clickCounter2 == kitchen) {
+        textArr = kitchen;
+    } else {
+        textArr = outside;
+    }
+    function clickCounter2(textArr) {
+
+        if (counterInner < textArr[counterOuter].length - 1) {
+            counterInner++;
+            gameScript.innerText = textArr[counterOuter][counterInner];
+            console.log(counterOuter); 
+            console.log(counterInner);
+            
+        } else if (counterInner >= textArr[counterOuter].length - 1){
+            counterOuter++;
+            counterInner = 0;
+            
+            console.log(counterOuter); 
+            console.log(counterInner);
+            gameScript.innerText = textArr[counterOuter][counterInner];
+            img.src = images[counterOuter]
+            
+        } 
     }
 };
-        // function firstDecision() {
-        //     let getWindow = document.getElementById('window');
-        // getWindow.setAttribute('class', 'window');
-        
-        // let counterOuter = 0;
-        // let counterInner = 0;
-        //     if (storyStart[counterOuter][counterInner] === 'Should I check the kitchen or go outside?') {
-        //         //hide contiune button, run next event listener 
-        //         $('#butn0').css('visibility','hidden');
-        //         $('#butn1').css('visibility','visible');
-                
-        //         var secondButn = document.getElementById('butn1');
-        //         secondButn.innerText = 'Leave Castle';
-        //         getWindow.appendChild(secondButn);
-                
-        //         $('#butn2').css('visibility','visible');
-        //         var thirdButn = document.getElementById('butn2');
-        //         thirdButn.innerText = 'Go to Kitchen';
-        //         getWindow.appendChild(thirdButn);
-    
-        //         secondButn.addEventListener('click', function () {
-        //             //run the click counter funtion? need new counter for new array
-        //         });
-        //         thirdButn.addEventListener('click', function () {
-        //             //do
-        //         });
-        //     }
-        // }
-
 // need a new eventlistener that creates 2 buttons, switch arrays based on click
 // add buttons to newButn eventlistener, but hide them until needed - 4 buttons - contuine, return, choice1, choice2
 

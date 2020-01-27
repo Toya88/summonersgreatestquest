@@ -61,6 +61,7 @@ for (let i = 0; i < 4; i++) {
     
 }
 function see() {
+    
     var enterButn = document.getElementById('enter');
     enterButn.style.visibility = 'hidden';
 
@@ -100,20 +101,12 @@ function see() {
     function clickCounter(textArr) {
        // write a function to change the array's - use varible set to true or false for each one
       
-       var startText = true;
-       var kitchenText = false;
-       var ericText = false;
-
-
-
-       if (startText == true) {
+       var startText = false;
+       
+       if (startText !== true) {
         textArr = storyStart;
-        startText = false;
-        // kitchenText = true;
-    } else
-     if(kitchenText == false) {
-        textArr = kitchen;
-    }
+        
+    } 
 
         if (counterInner < textArr[counterOuter].length - 1) {
             counterInner++;
@@ -179,7 +172,7 @@ function see() {
                 
                 $('#append').css('visibility','hidden');
                 next.removeEventListener('click', nextEvent, false);
-                next.addEventListener('click', clickCounter, false);
+                // next.addEventListener('click', clickCounter, false);
                 if (gameScript.innerText === 'Should I check the kitchen or go outside?') {
                         
                     firstDecision();
@@ -208,8 +201,27 @@ function see() {
 
         }
     }
-    // an eventlistener that removes the contiune button, adds the two other buttons
+    
     function firstDecision() {
+        function clickCounter2(textArr) {
+
+            if (counterInner < textArr[counterOuter].length - 1) {
+                counterInner++;
+                gameScript.innerText = textArr[counterOuter][counterInner];
+                console.log(counterOuter); 
+                console.log(counterInner);
+                
+            } else if (counterInner >= textArr[counterOuter].length - 1){
+                counterOuter++;
+                counterInner = 0;
+                
+                console.log(counterOuter); 
+                console.log(counterInner);
+                gameScript.innerText = textArr[counterOuter][counterInner];
+                img.src = images[counterOuter]
+                
+            } 
+        }
         let getWindow = document.getElementById('window');
     getWindow.setAttribute('class', 'window');
     
@@ -227,8 +239,8 @@ function see() {
     thirdButn.innerText = 'Go to Kitchen';
     getWindow.appendChild(thirdButn);
 
-    secondButn.addEventListener('click', clickCounter);
-    thirdButn.addEventListener('click', clickCounter);
+    secondButn.addEventListener('click', clickCounter2(kitchen));
+    thirdButn.addEventListener('click', clickCounter2(outside));
     }
 };
         // function firstDecision() {

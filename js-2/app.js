@@ -42,27 +42,8 @@ var kitchenOuterCounter = 0;
 var kitchenInnerCounter = 0;
 var outsideOuterCounter = 0;
 var outsideInnerCounter = 0;
-var leftOuterCounter = 0;
-var leftInnerCounter = 0;
-var rightOuterCounter = 0;
-var rightInnerCounter = 0;
-var deathInnerCounter = 0;
-var deathOuterCounter = 0;
 
 function enter() {
-     counterOuter = 0;
-     counterInner = 0;
-     kitchenOuterCounter = 0;
-     kitchenInnerCounter = 0;
-     outsideOuterCounter = 0;
-     outsideInnerCounter = 0;
-     leftOuterCounter = 0;
-     leftInnerCounter = 0;
-     rightOuterCounter = 0;
-     rightInnerCounter = 0;
-     deathInnerCounter = 0;
-     deathOuterCounter = 0;
-
     var enterButn = document.createElement("button");
     enterButn.setAttribute('class', 'enterBtn');
     enterButn.id = 'enter';
@@ -228,23 +209,20 @@ function see() {
     $('#butn2').css('visibility','hidden');
     // gameScript.innerText = kitchen[kitchenOuterCounter][kitchenInnerCounter];
     // kitchenInnerCounter++;
-     next.addEventListener('click', clickKitchen2);
+     next.addEventListener('click', clickKitchen);
+    if(kitchenInnerCounter < kitchen[kitchenOuterCounter].length - 1){        
+        gameScript.innerText = kitchen[kitchenOuterCounter][kitchenInnerCounter];
+        kitchenInnerCounter++;
+     }
+     else {    
+        gameScript.innerText = kitchen[kitchenOuterCounter][kitchenInnerCounter];
+       //image here if you want it
+       questItems.push('candy');
+       $('#butn0').css('visibility','hidden');
+       $('#butn1').css('visibility','visible');
+       next.removeEventListener('click', clickKitchen);
     }
-    function clickKitchen2() {
-        if(kitchenInnerCounter < kitchen[kitchenOuterCounter].length - 1){        
-            gameScript.innerText = kitchen[kitchenOuterCounter][kitchenInnerCounter];
-            kitchenInnerCounter++;
-        }
-        else {    
-            gameScript.innerText = kitchen[kitchenOuterCounter][kitchenInnerCounter];
-        //image here if you want it
-        questItems.push('candy');
-        $('#butn0').css('visibility','hidden');
-        $('#butn1').css('visibility','visible');
-        next.removeEventListener('click', clickKitchen2);
-        }
-        
-    }
+ }
 
  function clickOutside(){
        $('#butn0').css('visibility','visible');
@@ -252,15 +230,14 @@ function see() {
     $('#butn2').css('visibility','hidden');
     next.addEventListener('click', clickOutside);
     var haveCandy = questItems.indexOf("candy");
-
-if(haveCandy > -1){
+if(haveCandy > 0){
     if(outsideInnerCounter <= outside[outsideOuterCounter].length - 1){        
         gameScript.innerText = outside[outsideOuterCounter][outsideInnerCounter];
         outsideInnerCounter++;
      }
      else{
          outsideOuterCounter ++;
-         outsideInnerCounter = 0;
+         outsideInnerCounter=0;
          if(outsideOuterCounter < outside.length - 1){
          gameScript.innerText = outside[outsideOuterCounter][outsideInnerCounter];
          outsideInnerCounter++;
@@ -283,86 +260,46 @@ if(haveCandy > -1){
      }
     }
     else{
-        if(outsideInnerCounter <= outsideWrong[outsideOuterCounter].length - 1){        
-            gameScript.innerText = outsideWrong[outsideOuterCounter][outsideInnerCounter];
-            outsideInnerCounter++;
-         }
-         else{
-             outsideOuterCounter ++;
-             outsideInnerCounter=0;
-             if(outsideOuterCounter < outsideWrong.length - 1){
-             gameScript.innerText = outsideWrong[outsideOuterCounter][outsideInnerCounter];
-             outsideInnerCounter++;
-            }
-            else{
-                //next step
-                // gameScript.innerText = outsideWrong[outsideOuterCounter][outsideInnerCounter];
-                $('#butn0').css('visibility','hidden');
-                $('#butn1').css('visibility','visible');
-                $('#butn2').css('visibility','visible');
-                var secondButn = document.getElementById('butn1');
-                secondButn.innerText = 'Go Left';
-                var thirdButn = document.getElementById('butn2');
-                thirdButn.innerText = 'Go Right';
-                secondButn.removeEventListener('click', clickOutside);
-                thirdButn.removeEventListener('click', clickKitchen);
-                secondButn.addEventListener('click', leftSide);
-                thirdButn.addEventListener('click', rightSide);
-            }
-         }
+        alert('Nigga you wasting your time!');
     }
  }
  function leftSide(){
-    //  alert("leftSide")
-    $('#butn0').css('visibility','visible');
-    $('#butn1').css('visibility','hidden');
-    $('#butn2').css('visibility','hidden');
-
-    next.removeEventListener('click', clickOutside);
-    next.addEventListener('click', leftSide);
-    //leftPath
-    if (leftInnerCounter < leftPath[leftOuterCounter].length) {
-        gameScript.innerText = leftPath[leftOuterCounter][leftInnerCounter];
-        leftInnerCounter++;
-
-        console.log(leftInnerCounter);
-        
-    } else {
-    $('#butn0').css('visibility','hidden');
-    $('#butn1').css('visibility','visible');
-    $('#butn2').css('visibility','visible');
-
-    var secondButn = document.getElementById('butn1');
-    secondButn.innerText = 'Use hands'
-    secondButn.addEventListener('click', death);
-   
-    var thirdButn = document.getElementById('butn2');
-    thirdButn.innerText = 'Use gloves'
-    
-    }
+     alert("leftSide")
  }
-function death() {
-    //bitchyoudead
-    $('#butn0').css('visibility','visible');
-    $('#butn1').css('visibility','hidden');
-    $('#butn2').css('visibility','hidden');
-
-    next.removeEventListener('click', leftSide);
-    next.addEventListener('click', death);
-
-    if (deathInnerCounter < bitchYouDead[deathOuterCounter].length) {
-        gameScript.innerText = bitchYouDead[deathInnerCounter];
-        deathInnerCounter++;
-        $('#butn0').css('visibility','hidden');
-        enter();
-    }
-
-}
-
  function rightSide(){
      alert('rightSide')
  }
-
+    function clickCounter2(textArr) {
+      
+   if (textArr == 'kitchen') {
+     if(kitchenInnerCounter < kitchen[kitchenOuterCounter].length - 1){
+        kitchenInnerCounter++;
+        gameScript.innerText = kitchen[kitchenOuterCounter][kitchenInnerCounter];
+     }
+     else {
+       kitchenOuterCounter ++;
+       kitchenInnerCounter = 0;
+       gameScript.innerText = kitchen[kitchenOuterCounter][kitchenInnerCounter];
+       //image here if you want it
+    }
+}
+        // if (counterInner < textArr[counterOuter].length - 1) {
+        //     counterInner++;
+        //     gameScript.innerText = textArr[counterOuter][counterInner];
+        //     console.log(counterOuter); 
+        //     console.log(counterInner);
+            
+        // } else if (counterInner >= textArr[counterOuter].length - 1){
+        //     counterOuter++;
+        //     counterInner = 0;
+            
+        //     console.log(counterOuter); 
+        //     console.log(counterInner);
+        //     gameScript.innerText = textArr[counterOuter][counterInner];
+        //     img.src = images[counterOuter]
+            
+        // } 
+    }
 };
 // need a new eventlistener that creates 2 buttons, switch arrays based on click
 // add buttons to newButn eventlistener, but hide them until needed - 4 buttons - contuine, return, choice1, choice2
@@ -437,37 +374,7 @@ var outside = [
     ]
 ]
 
-var outsideWrong = [
-    [
-        'Waste of time'
-    ]
-]
 
-var leftPath = [
-    [
-        'Wow this field is beautiful. Wait is this the Honey Sweet hair of the land?',
-        'It is! The stock is pretty thick. Don\'t think I use my hands to get it.',
-        'Hmm, to tough. I think I should cut it with something.',
-        'Yes, I got it.',
-        'That\'s a pretty steep hill. I wonder what\'s at the end of this field.',
-        'There\'s nothing here. Darn I wasted 20 minutes getting here.',
-        'I made it to the top of the hill',
-        'I see the Sun Baked Sponge. This kinda look\'s like... No it couldn\'t be.',
-        'Look\'s so soft. Should I just grab it or use something?'
-    ]
-]
-
-var bitchYouDead = [
-    
-    'Ouch it burns. It\'s getting hotter!!',
-        'Oh My **** &%$!! My hands are are on fire.',
-        'I can\'t put them out!!! My clothes are on fire!! Why Can\'t I put it out!! WWWHHHHYYYYY!!'
-    
-]
-
-var rightPath = [
-
-]
 
 
 // var buttonEventsOne = [

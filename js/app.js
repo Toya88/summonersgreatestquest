@@ -50,18 +50,6 @@ var deathInnerCounter = 0;
 var deathOuterCounter = 0;
 
 function enter() {
-     counterOuter = 0;
-     counterInner = 0;
-     kitchenOuterCounter = 0;
-     kitchenInnerCounter = 0;
-     outsideOuterCounter = 0;
-     outsideInnerCounter = 0;
-     leftOuterCounter = 0;
-     leftInnerCounter = 0;
-     rightOuterCounter = 0;
-     rightInnerCounter = 0;
-     deathInnerCounter = 0;
-     deathOuterCounter = 0;
 
     var enterButn = document.createElement("button");
     enterButn.setAttribute('class', 'enterBtn');
@@ -338,6 +326,7 @@ if(haveCandy > -1){
    
     var thirdButn = document.getElementById('butn2');
     thirdButn.innerText = 'Use gloves'
+    thirdButn.addEventListener('click', gloves);
     
     }
  }
@@ -348,17 +337,32 @@ function death() {
     $('#butn2').css('visibility','hidden');
 
     next.removeEventListener('click', leftSide);
-    next.addEventListener('click', death);
+    next.addEventListener('click', die);
+    // deathOuterCounter > bitchYouDead[deathOuterCounter].length
+    function die() {
+        if (deathOuterCounter < bitchYouDead[deathOuterCounter].length) {
+            gameScript.innerText = bitchYouDead[deathOuterCounter];
+            deathOuterCounter++;       
+        } 
+        if(gameScript.innerText == 'I\'m Burning!!!! WWWHHHHYYYYY!!'){
+            // window.location.reload(false);
+            setTimeout(function(){ window.location.reload(false) }, 3000);        
+        } 
+    }
+}
+function gloves() {
+    $('#butn0').css('visibility','visible');
+    $('#butn1').css('visibility','hidden');
+    $('#butn2').css('visibility','hidden');
 
-    if (deathInnerCounter < bitchYouDead[deathOuterCounter].length) {
-        gameScript.innerText = bitchYouDead[deathInnerCounter];
-        deathInnerCounter++;
-        $('#butn0').css('visibility','hidden');
-        enter();
+    next.removeEventListener('click', leftSide);
+    next.addEventListener('click', useGloves);
+
+    function useGloves() {
+        
     }
 
 }
-
  function rightSide(){
      alert('rightSide')
  }
@@ -458,10 +462,13 @@ var leftPath = [
 ]
 
 var bitchYouDead = [
-    
+
     'Ouch it burns. It\'s getting hotter!!',
-        'Oh My **** &%$!! My hands are are on fire.',
-        'I can\'t put them out!!! My clothes are on fire!! Why Can\'t I put it out!! WWWHHHHYYYYY!!'
+    'Oh My **** &%$!! My hands are are on fire.',
+    'I can\'t put them out!!! My clothes are on fire!! Why Can\'t I put it out!!',
+    'I\'m Burning!!!! WWWHHHHYYYYY!!',
+    'DEAD',
+    'Start Over'
     
 ]
 

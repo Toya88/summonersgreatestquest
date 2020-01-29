@@ -48,6 +48,12 @@ var rightOuterCounter = 0;
 var rightInnerCounter = 0;
 var deathInnerCounter = 0;
 var deathOuterCounter = 0;
+var hasGlovesCounter = 0;
+var forestInnerCounter = 0;
+var forestOuterCounter = 0;
+var potionCounter = 0;
+
+var questItems = [];
 
 function enter() {
 
@@ -324,11 +330,19 @@ if(haveCandy > -1){
     secondButn.innerText = 'Use hands'
     secondButn.addEventListener('click', death);
    
-    var thirdButn = document.getElementById('butn2');
-    thirdButn.innerText = 'Use gloves'
-    thirdButn.addEventListener('click', gloves);
+    console.log(questItems);
     
+     haveGloves = questItems.indexOf('gloves');
+    if (haveGloves == -1) {
+        var thirdButn = document.getElementById('butn2');
+        thirdButn.innerText = 'Use gloves'
+        thirdButn.removeEventListener('click', rightSide);
+        thirdButn.addEventListener('click', gloves);
+        
+        }
+        
     }
+
  }
 function death() {
     //bitchyoudead
@@ -346,7 +360,7 @@ function death() {
         } 
         if(gameScript.innerText == 'I\'m Burning!!!! WWWHHHHYYYYY!!'){
             // window.location.reload(false);
-            setTimeout(function(){ window.location.reload(false) }, 3000);        
+            setTimeout(function(){ window.location.reload(false) }, 1000);        
         } 
     }
 }
@@ -359,7 +373,57 @@ function gloves() {
     next.addEventListener('click', useGloves);
 
     function useGloves() {
+        questItems.push('sunBakedSponge');
+
+        if (hasGlovesCounter <= hasGloves[hasGlovesCounter].length) {
+            gameScript.innerText = hasGloves[hasGlovesCounter];
+            hasGlovesCounter++;
+            console.log('here');
+
+            if (gameScript.innerText == 'Should I go foward or back up the hill?' ) {
+                console.log('Right');
+                next.removeEventListener('click', useGloves);
+                $('#butn0').css('visibility','hidden');
+                $('#butn1').css('visibility','visible');
+                $('#butn2').css('visibility','visible');
+    
+                var goFoward = document.getElementById('butn1');
+                var backUpHill = document.getElementById('butn2');
+                goFoward.innerText = 'Go Foward';
+                backUpHill.innerText = 'Go Back the Hill';
+                goFoward.removeEventListener('click', clickOutside);
+                backUpHill.removeEventListener('click', clickKitchen);
+                goFoward.addEventListener('click', forest);
+                backUpHill.addEventListener('click', clickOutside);
+                
+            }
+        } 
         
+    }
+
+}
+function forest() {
+    
+    $('#butn0').css('visibility','visible');
+    $('#butn1').css('visibility','hidden');
+    $('#butn2').css('visibility','hidden');
+
+    // goFoward.removeEventListener('click', clickOutside);
+    // backUpHill.removeEventListener('click', clickOutside);
+    next.addEventListener('click', potion);
+
+    function potion() {
+        if (forestInnerCounter < witch[forestOuterCounter].length - 1) {
+            gameScript.innerText = witch[forestOuterCounter][forestInnerCounter];
+            forestInnerCounter++;
+        } else {
+            forestOuterCounter++;
+            forestInnerCounter = 0;
+            if (forestOuterCounter < witch.length -1) {
+                gameScript.innerText = witch[forestOuterCounter][forestInnerCounter];
+                forestInnerCounter++;
+            }
+        }
     }
 
 }
@@ -407,9 +471,6 @@ var images = [
     'media/gameFonts.png',
     'media/gameFonts.png',
 ]
-
-
-var questItems = [];
 // will i need am image array for each section
 var kitchen = [
     //kitchen
@@ -471,164 +532,56 @@ var bitchYouDead = [
     'Start Over'
     
 ]
+var hasGloves = [
+    'I\'ll put the gloves on the grab the Sponge',
+    'I got the Sun Soaked Sponge',
+    'I\'ll put in my bag.',
+    'Look\'s like there might be something ahead.',
+    'Should I go foward or back up the hill?'
+]
+
+var witch = [
+    [
+        'You walk down a path into a lush forest',
+        'Near the middle of the path you see a strange women standing stairing at a tree',
+        'As you apporach, you speak to the old women'
+
+    ],
+    [
+        'You: Hello, how are you today?',
+        'Bloodtide: My my my, What a beautiful creature you are.',
+        'You: Umm thank you. Do you know where I could get a Witch\'s Potion',
+        'Bloodtide: Why yes I do ',
+        'You: Awesome! Can I a have it?',
+        'Bloodtide: But it\'s not free you know',
+        'Bloodtide: My what a wonderful and exotic top you have on',
+        'You: This old thing. Well ...',
+        'Bloodtide: Give it to me, Give it to me and I will give you the Witch\'s Potion',
+        'You: You want my shirt?',
+        'Bloodtide: Yes, yes, yes what a wonderful garment. OH and it smells soooooo gooooooood!',
+        'Should I give her my shirt?'
+    ],
+    [
+        'You: This is my only shirt.',
+        'Bloodtide: Well if I can\'t have it then you can\'t the potion',
+        'Bloodtide: Now Go away!!'
+    ]
+    
+]
+
+var potion = [
+        'You: Ok, Here you go',
+        'Bloodtide: Here Take them',
+        'Blood tide throws the Witch\'s Potion at you',
+        'Bloodtide: Now Go away!!'
+]
 
 var rightPath = [
 
 ]
 
 
-// var buttonEventsOne = [
-//     'Continue',
-//     'Leave Castle',
-//     'Take Item',
-//     'Use Hand\'s',
-//     'Go up Hill',
-//     'Walk further up the trail',
-//     'Take Big Table',
 
-// ];
-
-// var buttonEventsTwo = [
-//     'Check Out the Kitchen',
-//     'Return',
-//     'Use Knife',
-//     'Go to edge of field',
-//     'Put on gloves',
-//     'Take Small Table',
-// ];
-
-// firstButn.innerText = buttonEventsOne[0];
-// secondButn.innerText = buttonEventsTwo[0];
-
-// let state = {};
-
-// // story 
-// var gameScript = document.getElementById('gameScript');
-// //place story in order - formate needs to match so you can make 1 
-
-// //make a spot to display names and push the key/names in to it - name.innertext = key
-
-//         //   text: 'Take the goo',
-//         //   setState: { blueGoo: true },
-//         //   nextText: 2
-        
-// var storyText = [
-//     {
-//         id: 1,
-//         text: 'Today starts off like any other. You wake you, shower, get dressed, and head to school. While walking after you notice a gray cloud in the sky. You think to yourself, Maybe I\'ll get to see that weird phenomon where it only rains in one spot. You put your phone in your hand and stare at the cloud in enticaption of the rain. After a few minutes you give up and keep waking, but you turn to check the cloud ever few minutes. You begin to notice something strange. You ask yourself, is that cloud following me?  ',
-//         options: [
-//             {
-//             text = buttonEventsOne[0],
-//             nextText: 2
-//             }
-//         ]
-//     },
-//     {
-//         id: 2,
-//         text: 'The cloud is definitly following you. And it is getting closer. You turn and stair and right then the cloud launches a gray funnel at you. Before you have time to run, you are sucked up into the cloud. The exterme force of the spinning causes you to pass out.',
-//         options: [
-//             {
-//             text = buttonEventsOne[0],
-//             nextText: 3
-//             }
-//         ]
-//     },
-//     {
-//         id: 3,
-//         text: 'You awaken to a strange women standing in front of you. Before you can ask questions she begins to talk', 
-//         option: [
-//             {
-//                 text = buttonEventsOne[0],
-//                 nextText: 3
-//             }
-//         ]
-//     },
-//     {
-//         id: 4,
-//         text: 'Welcome Hero! We are glad you arrived here safely. Sorry but there is not much time to explain. Here is a list of items you must retrieve. All of the items can be found within a 20 meter perimeter of this castle.',
-//         'Here is a bag to hold all of the items for your quest. You may choose 3 of these 5 objects to take with you. Choose wisely!',
-//         options: [
-//             {
-//                 text = "",
-//                 nextText: 4
-            
-//             }
-//         ]
-//     },
-//     {
-//         id: 5,
-//         text: 'What should I choose?',
-//         options: [
-//             {
-//                 text = "",
-//                 nextText: 6
-//                 //need a function to pick items and set taken to true - a setState function
-//             }
-//         ]
-//     },
-//     {
-//         id: 6,
-//         text: 'Here are pictures of the items to help you identify them.',
-//         'You are now ready for your quest. Once you have collected all the items on the list, return at once to this castle! Here is your list - now go and return quickly!!',
-//         options: [
-//             {
-//                 text = "",
-//                 nextText: 7
-            
-//             }
-//         ]
-//     },
-//     {
-//         id:8,
-//         text: 'Wow ok. This quest must be really important. Hmm, what\'s on the list? I can see another room. Look '
-//         //list appear on the side of the screen
-//     }
-//     castleStart = {
-//         heroCastleOne: 'Should I check the kitchen or go outside?',
-//         heroCastleTwo: 'This candy looks good! Should I take it with me or eat it?',
-//         heroCastleThree: 'Nothing left here. Time to go.',
-//         heroCastleFour: 'Where to start, Right or Left',
-
-//     },
-
-//     littleBoy = {
-//         ericHiLine: 'Hi there.',
-//         eric: 'I thought I was grabbing candy but these are Super Hot Reaper Peppers',
-//         eric: 'I really want some candy',
-//         eric: 'Yes, Yes, Yes!',
-//         eric: 'Here you go.',
-//         eric: 'Ummmm, this is so good',
-//         eric: 'I hope my mom does not find out I took those peppers',
-//         eric: '',
-//         eric: '',
-//     },
-//     witch = {
-//         bloodtide: 'My my my, What a beautiful creature you are.',
-//         bloodtide: 'Why yes I do ',
-//         bloodtide: 'But it\'s not free you know',
-//         bloodtide: 'My what a wonderful and exotic top you have on',
-//         bloodtide: 'Give it to me, Give it to me and I will give you the ___',
-//         bloodtide: 'Yes, yes, yes what a wonderful garment. OH and it smells soooooo gooooooood!',
-//         bloodtide: 'Go away now!!',
-//         bloodtide: '',
-//         bloodtide: '',
-//         bloodtide: '',
-//         bloodtide: '',
-//     },
-//     leftPath = {
-//         lPathOne: 'Wow this field is beautiful. Wait is this the Honey Sweet hair of the land?',
-//         lPathTwo: 'It is! The stock is pretty thick. Don\'t think I use my hands to get it.',
-//         lPathThree: 'Hmm, to tough. I think I should cut it with something.',
-//         lPathFour: 'Yes, I got it.',
-//         lPathFive: 'That\'s a pretty steep hill. I wonder what\'s at the end of this field.',
-//         search: {
-//             fieldEnd: 'There\'s nothing here. Darn I wasted 20 minutes getting here.',
-//             hillTop: 'I made it to the top of the hill',
-//             hillFind: 'I see the Sun Baked Sponge. This kinda look\'s like... No I couldn\'t be.',
-//             hillGrab: 'Look\'s so soft. Should I just grab it or use something?',
-//             hillHand: 'Ouch it burns. It\'s getting hotter!! Oh My **** &%$!! My hands are are on fire. I can\'t put them out!!! My clothes are on fire!! Why Can\'t I put it out!! WWWHHHHYYYYY!!',
-//             hillGloves: 'Now I have the Sun Baked Sponge',
-//         },
 
 //     },
 //     rightPath = {
@@ -649,20 +602,3 @@ var rightPath = [
 //         returnName: 'Wait why does she already know my name?',
 
 //     },
-//     ruler = {
-//         ruler: '',
-//         ruler: '',
-//         ruler: '',
-//         ruler: '',
-//         ruler: '',
-//         ruler: '',
-//         ruler: '',
-//         ruler: '',
-//         ruler: '',
-//         ruler: '',
-//     },
-//     // end : {
-
-//     // }
-    
-// ];

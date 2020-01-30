@@ -52,6 +52,7 @@ var hasGlovesCounter = 0;
 var forestInnerCounter = 0;
 var forestOuterCounter = 0;
 var potionCounter = 0;
+
 var rightPathCounter = 0;
 var knifeCounter = 0;
 var noKifeCounter = 0;
@@ -486,8 +487,35 @@ function forest() {
 
  function rightSide(){
     //  alert('rightSide')
+    if (rightPathCounter < rightPath[rightPathCounter].length) {
+        gameScript.innerText = rightPath[rightPathCounter];
+        rightPathCounter++;
+    } else {
 
- }
+    }
+ };
+ 
+//  function knife() {
+     
+//  };
+//  function noKnife() {
+     
+//  };
+//  function fairy() {
+     
+//  }
+//  function small() {
+     
+//  };
+//  function big() {
+     
+//  };
+//  function wrong() {
+     
+//  };
+//  function right() {
+     
+//  };
 
 };
 // need a new eventlistener that creates 2 buttons, switch arrays based on click

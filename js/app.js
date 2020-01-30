@@ -52,6 +52,15 @@ var hasGlovesCounter = 0;
 var forestInnerCounter = 0;
 var forestOuterCounter = 0;
 var potionCounter = 0;
+var rightPathCounter = 0;
+var knifeCounter = 0;
+var noKifeCounter = 0;
+var fairyCounter = 0;
+var smallCounter = 0;
+var bigCounter = 0;
+var wrongEndingCounter = 0;
+var rightEndingCounter = 0;
+
 
 var questItems = [];
 
@@ -149,8 +158,6 @@ function see() {
             $('#append').css('visibility','visible');
             next.removeEventListener('click', clickCounter, false);
             next.addEventListener('click', nextEvent, false);
-            
-            
         }
     }
     function nextEvent() {
@@ -478,7 +485,8 @@ function forest() {
 }
 
  function rightSide(){
-     alert('rightSide')
+    //  alert('rightSide')
+
  }
 
 };

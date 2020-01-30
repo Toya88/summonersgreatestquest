@@ -421,7 +421,7 @@ function gloves() {
 
 }
 function forest() {
-    
+    event.preventDefault();
     $('#butn0').css('visibility','visible');
     $('#butn1').css('visibility','hidden');
     $('#butn2').css('visibility','hidden');
@@ -475,10 +475,6 @@ function forest() {
             }
         }
     }
-
-
-    
-
 }
 
  function rightSide(){
@@ -564,13 +560,8 @@ var outsideWrong = [
 
 var leftPath = [
     [
-        'Wow this field is beautiful. Wait is this the Honey Sweet hair of the land?',
-        'It is! The stock is pretty thick. Don\'t think I use my hands to get it.',
-        'Hmm, to tough. I think I should cut it with something.',
-        'Yes, I got it.',
-        'That\'s a pretty steep hill. I wonder what\'s at the end of this field.',
-        'There\'s nothing here. Darn I wasted 20 minutes getting here.',
-        'I made it to the top of the hill',
+        'You look ahead and see a forest.',
+        'As you walk foward into the forest you see something strangely familiar',
         'I see the Sun Baked Sponge. This kinda look\'s like... No it couldn\'t be.',
         'Look\'s so soft. Should I just grab it or use something?'
     ]
@@ -596,7 +587,7 @@ var hasGloves = [
 
 var witch = [
     [
-        'You walk down a path into a lush forest',
+        'You walk down a path into the lush forest',
         'Near the middle of the path you see a strange women standing stairing at a tree',
         'As you apporach, you speak to the old women'
 
@@ -631,28 +622,49 @@ var potion = [
 ]
 
 var rightPath = [
+    'Wow this field is beautiful.',
+    ' Wait is this the Honey Sweet hair of the land?',
+    'It is! The stock is pretty thick.',
+    'Hmm, to tough. I think I should cut it with something.',
+]
+var knife = [
+    'I\'ll use my knife.',
+    'So glad I picked it.',
+    'Yes, I got it.',
+    'One more item checked of the list.'
+]
+var noKnife = [
+    'Darn, I don\'t have anything sharp enough to cut it',
+    'No way to get it with out something to cut it with'
+]
+var fairies = [
+    'You walk futher into the field',
+    'After a few minutes of walking to notice something small and colorful',
+    'When you get closer you see several of the fairies tables',
+    'There are two different sizes. A small set and a big set',
+    'You: Should grad a small one or a big one?'
+]
 
+var small = [
+    'I\'ll take the small one.',
+    'Time to head back to the castle'
+]
+var big = [
+    'I\'ll take the big one.',
+    'Time to head back to the castle'
+]
+var wrongEnding = [
+    'You choose the wrong fairy table.',
+    'You tried to kill the Queen',
+    'You punishment is death!!'
+]
+var rightEnding = [
+    'I see you have returned',
+    'Give me your bag. I\'ll check to see if you brought everything',
+    'You have everything I need to create.....',
+    'The queens favorite sandwhich',
+    'So glad you did. That witch give\'s me the creeps',
+    'Thanks for all your help. You may return now'
 ]
 
 
-
-
-//     },
-//     rightPath = {
-//         forestPath: 'What I wonderful forest. So many plants I\'ve never seen before',
-//         forestRock: 'There is a rock in front of the Super Rare Blue Fairies-Table. I should search over there where those rocks are.',
-//         forestFind: 'Jackpot! I found 2 Fairies-Tables. One seems to be bigger then the other. Which one should I take?',
-//         smallTable: 'Guess I\'ll take the smaller one.',
-//         bigTable: 'Definitely taking the big table.',
-        
-//     },
-//     castleEnd = {
-//         returnToCastleI : 'I think it\'s time to '
-//     },
-//     returnAfterDeath = {
-//         returnOne: 'Did I die?',
-//         returnBoy: 'Am I a boy?',
-//         returnGirl: 'Am I a girl?',
-//         returnName: 'Wait why does she already know my name?',
-
-//     },

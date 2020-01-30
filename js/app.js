@@ -311,69 +311,87 @@ if(haveCandy > -1){
     $('#butn0').css('visibility','visible');
     $('#butn1').css('visibility','hidden');
     $('#butn2').css('visibility','hidden');
-
+    haveGloves = questItems.indexOf('gloves');
     next.removeEventListener('click', clickOutside);
     next.addEventListener('click', leftSide);
-    //leftPath
-    if (leftInnerCounter < leftPath[leftOuterCounter].length) {
-        gameScript.innerText = leftPath[leftOuterCounter][leftInnerCounter];
-        leftInnerCounter++;
 
-        console.log(leftInnerCounter);
+    //leftPath
+    if (haveGloves > -1) {
+        if (leftInnerCounter < leftPath[leftOuterCounter].length) {
+            gameScript.innerText = leftPath[leftOuterCounter][leftInnerCounter];
+            leftInnerCounter++;
+        }else{
+            $('#butn0').css('visibility','hidden');
+            $('#butn1').css('visibility','visible');
+            $('#butn2').css('visibility','visible');
+
+            var secondButn = document.getElementById('butn1');
+            secondButn.removeEventListener('click', leftSide);
+        secondButn.innerText = 'Use hands';
+        secondButn.addEventListener('click', death);
+
+        var thirdButn = document.getElementById('butn2');
+        thirdButn.innerText = 'Use gloves';
+        thirdButn.removeEventListener('click', rightSide);
+        thirdButn.addEventListener('click', gloves);
+console.log(leftInnerCounter);
+
+        }
+
         
     } else {
     $('#butn0').css('visibility','hidden');
     $('#butn1').css('visibility','visible');
     $('#butn2').css('visibility','visible');
-
-    var secondButn = document.getElementById('butn1');
-    secondButn.innerText = 'Use hands'
-    secondButn.addEventListener('click', death);
+    
+        
+        var secondButn = document.getElementById('butn1');
+        secondButn.innerText = 'Use hands';
+        thirdButn.removeEventListener('click', rightSide);
+        secondButn.addEventListener('click', death);
+    
+        var thirdButn = document.getElementById('butn2');
+        thirdButn.innerText = 'No gloves';
+        thirdButn.removeEventListener('click', rightSide);
+        thirdButn.addEventListener('click', death);
+        
+        };
    
     console.log(questItems);
-    
-     haveGloves = questItems.indexOf('gloves');
-    if (haveGloves == -1) {
-        var thirdButn = document.getElementById('butn2');
-        thirdButn.innerText = 'Use gloves'
-        thirdButn.removeEventListener('click', rightSide);
-        thirdButn.addEventListener('click', gloves);
         
-        }
-        
-    }
+    };
 
- }
+ 
 function death() {
     //bitchyoudead
+    event.preventDefault();
     $('#butn0').css('visibility','visible');
     $('#butn1').css('visibility','hidden');
     $('#butn2').css('visibility','hidden');
 
     next.removeEventListener('click', leftSide);
-    next.addEventListener('click', die);
+    next.addEventListener('click', death);
     // deathOuterCounter > bitchYouDead[deathOuterCounter].length
-    function die() {
-        if (deathOuterCounter < bitchYouDead[deathOuterCounter].length) {
-            gameScript.innerText = bitchYouDead[deathOuterCounter];
-            deathOuterCounter++;       
-        } 
-        if(gameScript.innerText == 'I\'m Burning!!!! WWWHHHHYYYYY!!'){
-            // window.location.reload(false);
-            setTimeout(function(){ window.location.reload(false) }, 1000);        
-        } 
-    }
-}
+    if (deathOuterCounter < bitchYouDead[deathOuterCounter].length) {
+        gameScript.innerText = bitchYouDead[deathOuterCounter];
+        deathOuterCounter++;       
+    } 
+    if(gameScript.innerText == 'I\'m Burning!!!! WWWHHHHYYYYY!!'){
+        window.location.reload(false);
+        // setTimeout(function(){ window.location.reload(false) }, 1000);        
+    } ;
+    
+};
 function gloves() {
     $('#butn0').css('visibility','visible');
     $('#butn1').css('visibility','hidden');
     $('#butn2').css('visibility','hidden');
 
-    next.removeEventListener('click', leftSide);
-    next.addEventListener('click', useGloves);
+    next.removeEventListener('click', death);
+    next.addEventListener('click', gloves);
+    questItems.push('sunBakedSponge');
 
-    function useGloves() {
-        questItems.push('sunBakedSponge');
+    // function useGloves() {
 
         if (hasGlovesCounter <= hasGloves[hasGlovesCounter].length) {
             gameScript.innerText = hasGloves[hasGlovesCounter];
@@ -382,24 +400,24 @@ function gloves() {
 
             if (gameScript.innerText == 'Should I go foward or back up the hill?' ) {
                 console.log('Right');
-                next.removeEventListener('click', useGloves);
                 $('#butn0').css('visibility','hidden');
                 $('#butn1').css('visibility','visible');
                 $('#butn2').css('visibility','visible');
-    
+                
                 var goFoward = document.getElementById('butn1');
                 var backUpHill = document.getElementById('butn2');
                 goFoward.innerText = 'Go Foward';
                 backUpHill.innerText = 'Go Back the Hill';
                 goFoward.removeEventListener('click', clickOutside);
-                backUpHill.removeEventListener('click', clickKitchen);
+                backUpHill.removeEventListener('click', death);
                 goFoward.addEventListener('click', forest);
                 backUpHill.addEventListener('click', clickOutside);
+                // next.removeEventListener('click', useGloves);
                 
             }
         } 
         
-    }
+    // }
 
 }
 function forest() {
@@ -407,12 +425,14 @@ function forest() {
     $('#butn0').css('visibility','visible');
     $('#butn1').css('visibility','hidden');
     $('#butn2').css('visibility','hidden');
+    // questItems.push('potion');
 
-    // goFoward.removeEventListener('click', clickOutside);
-    // backUpHill.removeEventListener('click', clickOutside);
-    next.addEventListener('click', potion);
+    next.removeEventListener('click', gloves);
+    next.addEventListener('click', forest);
 
-    function potion() {
+    hasShirt = questItems.indexOf('shirt');
+
+    if (hasShirt > -1) {
         if (forestInnerCounter < witch[forestOuterCounter].length - 1) {
             gameScript.innerText = witch[forestOuterCounter][forestInnerCounter];
             forestInnerCounter++;
@@ -422,11 +442,45 @@ function forest() {
             if (forestOuterCounter < witch.length -1) {
                 gameScript.innerText = witch[forestOuterCounter][forestInnerCounter];
                 forestInnerCounter++;
+            } else {
+                $('#butn0').css('visibility','hidden');
+                $('#butn2').css('visibility','visible'); 
+                
+                var right = document.getElementById('butn2');
+                right.innerText = 'Go Right';
+                right.removeEventListener('click', clickOutside);       
+                right.addEventListener('click', rightSide);
+            }
+        }
+        
+    } else {
+        questItems.push('witch potion');
+        if (forestInnerCounter < potion[forestOuterCounter].length - 1) {
+            gameScript.innerText = potion[forestOuterCounter][forestInnerCounter];
+            forestInnerCounter++;
+        } else {
+            forestOuterCounter++;
+            forestInnerCounter = 0;
+            if (forestOuterCounter < potion.length -1) {
+                gameScript.innerText = potion[forestOuterCounter][forestInnerCounter];
+                forestInnerCounter++;
+            } else {
+                $('#butn0').css('visibility','hidden');
+                $('#butn2').css('visibility','visible'); 
+                
+                var right = document.getElementById('butn2');
+                right.innerText = 'Go Right';
+                right.removeEventListener('click', clickOutside);       
+                right.addEventListener('click', rightSide);
             }
         }
     }
 
+
+    
+
 }
+
  function rightSide(){
      alert('rightSide')
  }

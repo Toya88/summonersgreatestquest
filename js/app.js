@@ -49,19 +49,21 @@ var rightInnerCounter = 0;
 var deathInnerCounter = 0;
 var deathOuterCounter = 0;
 var hasGlovesCounter = 0;
-var forestInnerCounter = 0;
-var forestOuterCounter = 0;
-var potionCounter = 0;
+var potionInnerCounter = 0;
+var potionOuterCounter = 0;
+var noPotionInnerCounter = 0;
+var noPotionOuterCounter = 0;
 
 var rightPathCounter = 0;
-var knifeCounter = 0;
-var noKifeCounter = 0;
+var knifeInnerCounter = 0;
+var knifeOuterCounter = 0;
+var noKnifeInnerCounter = 0;
+var noKnifeOuterCounter = 0;
 var fairyCounter = 0;
-var smallCounter = 0;
-var bigCounter = 0;
-var wrongEndingCounter = 0;
-var rightEndingCounter = 0;
-
+var wrongInnerCounter = 0;
+var wrongInnerCounter = 0;
+var rightOuterCounter = 0;
+var rightOuterCounter = 0;
 
 var questItems = [];
 
@@ -74,20 +76,17 @@ function enter() {
     getWindow.appendChild(enterButn);
     enterButn.innerText = 'Start';
     enterButn.addEventListener('click', see)
-    
-    
-    // console.log(enterButn);   
+      
 }
 enter();
 //buttons need to be gobal? 
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 6; i++) {
     var button = document.createElement('button');
     button.className = 'buttons';
     button.id = 'butn' + i;
     let getWindow = document.getElementById('window');
     getWindow.appendChild(button);
     $('.buttons').css('visibility','hidden');
-    // console.log(button);
     
 }
 function see() {
@@ -319,12 +318,13 @@ if(haveCandy > -1){
     $('#butn0').css('visibility','visible');
     $('#butn1').css('visibility','hidden');
     $('#butn2').css('visibility','hidden');
-    haveGloves = questItems.indexOf('gloves');
+    var haveGloves = questItems.indexOf('gloves');
     next.removeEventListener('click', clickOutside);
     next.addEventListener('click', leftSide);
 
     //leftPath
     if (haveGloves > -1) {
+        questItems.push('sunBakedSponge');
         if (leftInnerCounter < leftPath[leftOuterCounter].length) {
             gameScript.innerText = leftPath[leftOuterCounter][leftInnerCounter];
             leftInnerCounter++;
@@ -400,12 +400,10 @@ function gloves() {
     $('#butn2').css('visibility','hidden');
     $('#butn3').css('visibility','hidden');
 
-    
+    var next = document.getElementById('butn0');
     next.removeEventListener('click', leftSide);
     next.addEventListener('click', gloves);
-    questItems.push('sunBakedSponge');
 
-    // function useGloves() {
 
         if (hasGlovesCounter <= hasGloves[hasGlovesCounter].length) {
             gameScript.innerText = hasGloves[hasGlovesCounter];
@@ -430,12 +428,10 @@ function gloves() {
                 
             }
         } 
-        
-    // }
-
+    
 }
 function forest() {
-    event.preventDefault();
+    // event.preventDefault();
     $('#butn0').css('visibility','visible');
     $('#butn1').css('visibility','hidden');
     $('#butn2').css('visibility','hidden');
@@ -443,22 +439,24 @@ function forest() {
     // questItems.push('potion');
 
     var dead = document.getElementById('butn3');
+    var next = document.getElementById('butn0');
     dead.removeEventListener('click', death);
     next.removeEventListener('click', gloves);
     next.addEventListener('click', forest);
 
-    hasShirt = questItems.indexOf('shirt');
+    var hasShirt = questItems.indexOf('shirt');
 
     if (hasShirt > -1) {
-        if (forestInnerCounter < witch[forestOuterCounter].length - 1) {
-            gameScript.innerText = witch[forestOuterCounter][forestInnerCounter];
-            forestInnerCounter++;
+    questItems.push('witch potion');
+        if (potionInnerCounter < potion[potionOuterCounter].length) {
+            gameScript.innerText = potion[potionOuterCounter][potionInnerCounter];
+            potionInnerCounter++;
         } else {
-            forestOuterCounter++;
-            forestInnerCounter = 0;
-            if (forestOuterCounter < witch.length -1) {
-                gameScript.innerText = witch[forestOuterCounter][forestInnerCounter];
-                forestInnerCounter++;
+            potionOuterCounter++;
+            potionInnerCounter = 0;
+            if (potionOuterCounter < potion.length) {
+                gameScript.innerText = potion[potionOuterCounter][potionInnerCounter];
+                potionInnerCounter++;
             } else {
                 $('#butn0').css('visibility','hidden');
                 $('#butn2').css('visibility','visible'); 
@@ -471,16 +469,16 @@ function forest() {
         }
         
     } else {
-        questItems.push('witch potion');
-        if (forestInnerCounter < potion[forestOuterCounter].length - 1) {
-            gameScript.innerText = potion[forestOuterCounter][forestInnerCounter];
-            forestInnerCounter++;
+        
+        if (noPotionInnerCounter < noPotion[noPotionOuterCounter].length) {
+            gameScript.innerText = noPotion[noPotionOuterCounter][noPotionInnerCounter];
+            noPotionInnerCounter++;
         } else {
-            forestOuterCounter++;
-            forestInnerCounter = 0;
-            if (forestOuterCounter < potion.length -1) {
-                gameScript.innerText = potion[forestOuterCounter][forestInnerCounter];
-                forestInnerCounter++;
+            noPotionOuterCounter++;
+            noPotionInnerCounter = 0;
+            if (noPotionOuterCounter < noPotion.length) {
+                gameScript.innerText = noPotion[noPotionOuterCounter][noPotionInnerCounter];
+                noPotionInnerCounter++;
             } else {
                 $('#butn0').css('visibility','hidden');
                 $('#butn2').css('visibility','visible'); 
@@ -495,39 +493,96 @@ function forest() {
 }
 
  function rightSide(){
-    //  alert('rightSide')
-    if (rightPathCounter < rightPath[rightPathCounter].length) {
-        gameScript.innerText = rightPath[rightPathCounter];
-        rightPathCounter++;
-    } else {
+    $('#butn0').css('visibility','visible');
+    // $('#butn1').css('visibility','hidden');
+    $('#butn2').css('visibility','hidden');
+    // $('#butn3').css('visibility','hidden');
 
+    var right = document.getElementById('butn2');
+    var next = document.getElementById('butn0');
+    // var third = document.getElementById('butn3');
+    right.removeEventListener('click', rightSide);
+    next.removeEventListener('click', forest);
+    next.addEventListener('click', rightSide);
+    var hasKnife = questItems.indexOf('knife');
+
+    //run knife else, run n knife
+    if (hasKnife > -1) {
+        questItems.push('lettuce');
+        if (knifeInnerCounter < knife[knifeOuterCounter].length) {
+            gameScript.innerText = knife[knifeOuterCounter][knifeInnerCounter];
+            knifeInnerCounter++;
+        } else {
+            knifeOuterCounter++;
+            knifeInnerCounter = 0;
+            if (knifeOuterCounter < knife.length) {
+                gameScript.innerText = knife[knifeOuterCounter][knifeInnerCounter];
+                knifeInnerCounter++;
+            } else {
+                $('#butn0').css('visibility','hidden');
+                $('#butn4').css('visibility','visible');
+                $('#butn5').css('visibility','visible'); 
+                
+                var big = document.getElementById('butn4');
+                var small = document.getElementById('butn5');
+
+                big.addEventListener('click', bigFairy);
+                big.innerText = 'Choose Big Fairy Table';
+                small.addEventListener('click', smallFairy);
+                small.innerText = 'Choose Small Fairy Table';
+            }
+        }
         
+    } else {
+        
+        if (noKnifeInnerCounter < noKnife[noKnifeOuterCounter].length) {
+            gameScript.innerText = noKnife[noKnifeOuterCounter][noKnifeInnerCounter];
+            noKnifeInnerCounter++;
+        } else {
+            noKnifeOuterCounter++;
+            noKnifeInnerCounter = 0;
+            if (noKnifeOuterCounter < noKnife.length) {
+                gameScript.innerText = noKnife[noKnifeOuterCounter][noKnifeInnerCounter];
+                noKnifeInnerCounter++;
+            } else {
+                $('#butn0').css('visibility','hidden');
+                $('#butn4').css('visibility','visible');
+                $('#butn5').css('visibility','visible'); 
+                
+                var small = document.getElementById('butn4');
+                var big = document.getElementById('butn5');
+
+                small.addEventListener('click', smallFairy);
+                small.innerText = 'Choose small Fairy Table';
+                big.addEventListener('click', bigFairy);
+                big.innerText = 'Choose Big Fairy Table';
+            }
+        }
     }
+    
  };
- 
-//  function knife() {
-     
-//  };
-//  function noKnife() {
-     
-//  };
-//  function fairy() {
-     
-//  }
-//  function small() {
-     
-//  };
-//  function big() {
-     
-//  };
-//  function wrong() {
-     
-//  };
-//  function right() {
-     
-//  };
+//rightEnding - wrongEnding
+ function smallFairy() {
+    //  alert('small')
+
+    $('#butn4').css('visibility','visible');
+    $('#butn5').css('visibility','hidden');
+
+    var small = document.getElementById('butn4');
+    small.innerText = 'continue';
+
+    if(quest)
+
+ };
+ function bigFairy() {
+    alert('big')
+ };
+
 
 };
+
+//need to check if they have all the items in ending/ else restart
+
 // need a new eventlistener that creates 2 buttons, switch arrays based on click
 // add buttons to newButn eventlistener, but hide them until needed - 4 buttons - contuine, return, choice1, choice2
 
@@ -631,7 +686,7 @@ var hasGloves = [
     'Should I go foward or back up the hill?'
 ]
 
-var witch = [
+var potion = [
     [
         'You walk down a path into the lush forest',
         'Near the middle of the path you see a strange women standing stairing at a tree',
@@ -649,68 +704,105 @@ var witch = [
         'You: This old thing. Well ...',
         'Bloodtide: Give it to me, Give it to me and I will give you the Witch\'s Potion',
         'You: You want my shirt?',
-        'Bloodtide: Yes, yes, yes what a wonderful garment. OH and it smells soooooo gooooooood!',
-        'Should I give her my shirt?'
+        'Bloodtide: Yes, yes, yes what a wonderful garment. OH and it smells soooooo gooooooood!'
+    ],
+    [
+        'You: Ok, Here you go',
+        'Bloodtide: Here Take them',
+        'Blood tide throws the Witch\'s Potion at you',
+        'Bloodtide: Now Go away!!'
+    ]
+    
+]
+
+var noPotion = [
+    [
+        'You walk down a path into the lush forest',
+        'Near the middle of the path you see a strange women standing stairing at a tree',
+        'As you apporach, you speak to the old women'
+
+    ],
+    [
+        'You: Hello, how are you today?',
+        'Bloodtide: My my my, What a beautiful creature you are.',
+        'You: Umm thank you. Do you know where I could get a Witch\'s Potion',
+        'Bloodtide: Why yes I do ',
+        'You: Awesome! Can I a have it?',
+        'Bloodtide: But it\'s not free you know',
+        'Bloodtide: My what a wonderful and exotic top you have on',
+        'You: This old thing. Well ...',
+        'Bloodtide: Give it to me, Give it to me and I will give you the Witch\'s Potion',
+        'You: You want my shirt?',
+        'Bloodtide: Yes, yes, yes what a wonderful garment. OH and it smells soooooo gooooooood!'
     ],
     [
         'You: This is my only shirt.',
         'Bloodtide: Well if I can\'t have it then you can\'t the potion',
         'Bloodtide: Now Go away!!'
     ]
-    
+        
 ]
 
-var potion = [
-        'You: Ok, Here you go',
-        'Bloodtide: Here Take them',
-        'Blood tide throws the Witch\'s Potion at you',
-        'Bloodtide: Now Go away!!'
-]
-
-var rightPath = [
-    'Wow this field is beautiful.',
+var knife = [
+    ['Wow this field is beautiful.',
     ' Wait is this the Honey Sweet hair of the land?',
     'It is! The stock is pretty thick.',
-    'Hmm, to tough. I think I should cut it with something.',
-]
-var knife = [
-    'I\'ll use my knife.',
+    'Hmm, to tough. I think I should cut it with something.'],
+    ['I\'ll use my knife.',
     'So glad I picked it.',
     'Yes, I got it.',
-    'One more item checked of the list.'
+    'One more item checked of the list.'],
+    ['You walk futher into the field',
+    'After a few minutes of walking to notice something small and colorful',
+    'When you get closer you see several of the fairies tables',
+    'There are two different sizes. A small set and a big set',
+    'You: Should grad a small one or a big one?'
+    ]
 ]
 var noKnife = [
-    'Darn, I don\'t have anything sharp enough to cut it',
-    'No way to get it with out something to cut it with'
-]
-var fairies = [
+    ['Wow this field is beautiful.',
+    ' Wait is this the Honey Sweet hair of the land?',
+    'It is! The stock is pretty thick.',
+    'Hmm, to tough. I think I should cut it with something.'],
+    ['Darn, I don\'t have anything sharp enough to cut it',
+    'No way to get it with out something to cut it with'],
+    [
     'You walk futher into the field',
     'After a few minutes of walking to notice something small and colorful',
     'When you get closer you see several of the fairies tables',
     'There are two different sizes. A small set and a big set',
     'You: Should grad a small one or a big one?'
+    ]
 ]
 
-var small = [
-    'I\'ll take the small one.',
-    'Time to head back to the castle'
-]
-var big = [
+// var small = [
+//     ['I\'ll take the small one.',
+//     'Time to head back to the castle']
+// ]
+// var big = [
+//     ['I\'ll take the big one.',
+//     'Time to head back to the castle']
+// ]
+var wrongEnding = [
+    [
     'I\'ll take the big one.',
     'Time to head back to the castle'
-]
-var wrongEnding = [
+    ],
+    [
     'You choose the wrong fairy table.',
     'You tried to kill the Queen',
     'You punishment is death!!'
+    ]
 ]
 var rightEnding = [
-    'I see you have returned',
+    ['I\'ll take the small one.',
+    'Time to head back to the castle'],
+    ['I see you have returned',
     'Give me your bag. I\'ll check to see if you brought everything',
     'You have everything I need to create.....',
     'The queens favorite sandwhich',
     'So glad you did. That witch give\'s me the creeps',
-    'Thanks for all your help. You may return now'
+    'Thanks for all your help. You may return now']
 ]
 
 

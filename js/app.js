@@ -80,7 +80,7 @@ function enter() {
 }
 enter();
 //buttons need to be gobal? 
-for (let i = 0; i < 4; i++) {
+for (let i = 0; i < 5; i++) {
     var button = document.createElement('button');
     button.className = 'buttons';
     button.id = 'butn' + i;
@@ -377,8 +377,12 @@ function death() {
     $('#butn1').css('visibility','hidden');
     $('#butn2').css('visibility','hidden');
 
+    $('#butn3').css('visibility','visible');
+    var dead = document.getElementById('butn3');
+    dead.innerText = 'Continue';
+
     next.removeEventListener('click', leftSide);
-    next.addEventListener('click', death);
+    dead.addEventListener('click', death);
     // deathOuterCounter > bitchYouDead[deathOuterCounter].length
     if (deathOuterCounter < bitchYouDead[deathOuterCounter].length) {
         gameScript.innerText = bitchYouDead[deathOuterCounter];
@@ -394,8 +398,10 @@ function gloves() {
     $('#butn0').css('visibility','visible');
     $('#butn1').css('visibility','hidden');
     $('#butn2').css('visibility','hidden');
+    $('#butn3').css('visibility','hidden');
 
-    next.removeEventListener('click', death);
+    
+    next.removeEventListener('click', leftSide);
     next.addEventListener('click', gloves);
     questItems.push('sunBakedSponge');
 
@@ -433,8 +439,11 @@ function forest() {
     $('#butn0').css('visibility','visible');
     $('#butn1').css('visibility','hidden');
     $('#butn2').css('visibility','hidden');
+    $('#butn3').css('visibility','hidden');
     // questItems.push('potion');
 
+    var dead = document.getElementById('butn3');
+    dead.removeEventListener('click', death);
     next.removeEventListener('click', gloves);
     next.addEventListener('click', forest);
 
@@ -492,6 +501,7 @@ function forest() {
         rightPathCounter++;
     } else {
 
+        
     }
  };
  

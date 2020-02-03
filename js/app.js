@@ -255,6 +255,7 @@ function see() {
     var haveCandy = questItems.indexOf("candy");
 
 if(haveCandy > -1){
+
     if(outsideInnerCounter <= outside[outsideOuterCounter].length - 1){        
         gameScript.innerText = outside[outsideOuterCounter][outsideInnerCounter];
         outsideInnerCounter++;
@@ -324,11 +325,11 @@ if(haveCandy > -1){
 
     //leftPath
     if (haveGloves > -1) {
-        questItems.push('sunBakedSponge');
         if (leftInnerCounter < leftPath[leftOuterCounter].length) {
             gameScript.innerText = leftPath[leftOuterCounter][leftInnerCounter];
             leftInnerCounter++;
         }else{
+            
             $('#butn0').css('visibility','hidden');
             $('#butn1').css('visibility','visible');
             $('#butn2').css('visibility','visible');
@@ -342,7 +343,7 @@ if(haveCandy > -1){
         thirdButn.innerText = 'Use gloves';
         thirdButn.removeEventListener('click', rightSide);
         thirdButn.addEventListener('click', gloves);
-console.log(leftInnerCounter);
+        console.log(leftInnerCounter);
 
         }
 
@@ -415,7 +416,9 @@ function gloves() {
                 $('#butn0').css('visibility','hidden');
                 $('#butn1').css('visibility','visible');
                 $('#butn2').css('visibility','visible');
-                
+
+                questItems.push('sunBakedSponge');
+
                 var goFoward = document.getElementById('butn1');
                 var backUpHill = document.getElementById('butn2');
                 goFoward.innerText = 'Go Foward';
@@ -447,7 +450,6 @@ function forest() {
     var hasShirt = questItems.indexOf('shirt');
 
     if (hasShirt > -1) {
-    questItems.push('witch potion');
         if (potionInnerCounter < potion[potionOuterCounter].length) {
             gameScript.innerText = potion[potionOuterCounter][potionInnerCounter];
             potionInnerCounter++;
@@ -457,7 +459,8 @@ function forest() {
             if (potionOuterCounter < potion.length) {
                 gameScript.innerText = potion[potionOuterCounter][potionInnerCounter];
                 potionInnerCounter++;
-            } else {
+            } else if (questItems.length <= 4){
+                questItems.push('potion');
                 $('#butn0').css('visibility','hidden');
                 $('#butn2').css('visibility','visible'); 
                 
@@ -465,6 +468,11 @@ function forest() {
                 right.innerText = 'Go Right';
                 right.removeEventListener('click', clickOutside);       
                 right.addEventListener('click', rightSide);
+            } else {
+                alert('ending')
+                //ending
+                right.removeEventListener('click', clickOutside);       
+                right.addEventListener('click', ending);
             }
         }
         
@@ -479,7 +487,9 @@ function forest() {
             if (noPotionOuterCounter < noPotion.length) {
                 gameScript.innerText = noPotion[noPotionOuterCounter][noPotionInnerCounter];
                 noPotionInnerCounter++;
-            } else {
+            } else if (questItems.length <= 5) {
+                console.log(questItems);
+                
                 $('#butn0').css('visibility','hidden');
                 $('#butn2').css('visibility','visible'); 
                 
@@ -487,6 +497,11 @@ function forest() {
                 right.innerText = 'Go Right';
                 right.removeEventListener('click', clickOutside);       
                 right.addEventListener('click', rightSide);
+            } else {
+                alert('ending')
+                //ending
+                right.removeEventListener('click', clickOutside);       
+                right.addEventListener('click', ending);
             }
         }
     }
@@ -508,7 +523,6 @@ function forest() {
 
     //run knife else, run n knife
     if (hasKnife > -1) {
-        questItems.push('lettuce');
         if (knifeInnerCounter < knife[knifeOuterCounter].length) {
             gameScript.innerText = knife[knifeOuterCounter][knifeInnerCounter];
             knifeInnerCounter++;
@@ -519,6 +533,7 @@ function forest() {
                 gameScript.innerText = knife[knifeOuterCounter][knifeInnerCounter];
                 knifeInnerCounter++;
             } else {
+                questItems.push('lettuce');
                 $('#butn0').css('visibility','hidden');
                 $('#butn4').css('visibility','visible');
                 $('#butn5').css('visibility','visible'); 
@@ -561,28 +576,89 @@ function forest() {
     }
     
  };
+ //need right to call left at end / or check and trigger ending - check the array for amount
 //rightEnding - wrongEnding
+
+//move where items are pushed
  function smallFairy() {
-    //  alert('small')
+    questItems.push('smallTable');
+        $('#butn4').css('visibility','visible');
+        $('#butn5').css('visibility','hidden');
+    
+        var small = document.getElementById('butn4');
+        small.innerText = 'continue';
 
-    $('#butn4').css('visibility','visible');
-    $('#butn5').css('visibility','hidden');
+        var smallTable = questItems.indexOf('smallTable')
+        if(smallTable == -1){
+            if(smallCounter < small[smallCounter].length) {
+                gameScript.innerText = small[smallCounter];
+                smallCounter++;       
+            } else if (questItems.length <= 5){
+                //left side
+                small.removeEventListener('click', smallFairy);
+                small.addEventListener('click', leftSide);
+            } else {
+                //ending
+                small.removeEventListener('click', smallFairy);
+                small.addEventListener('click', ending);
+            }
 
-    var small = document.getElementById('butn4');
-    small.innerText = 'continue';
+        }
+ }
+    function bigFairy() {
+        questItems.push('bigTable');
+        $('#butn4').css('visibility','visible');
+        $('#butn5').css('visibility','hidden');
+    
+        var big = document.getElementById('butn4');
+        small.innerText = 'continue';
 
-    if(quest)
+        var bigTable = questItems.indexOf('bigTable')
+        if(bigTable == -1){
+            if(bigCounter < big[bigCounter].length) {
+                gameScript.innerText = big[bigCounter];
+                bigCounter++;       
+            } else if (questItems.length <= 5){
+                //left side
+                big.removeEventListener('click', bigFairy);
+                big.addEventListener('click', leftSide);
+            } else {
+                //ending
+                big.removeEventListener('click', bigFairy);
+                big.addEventListener('click', ending);
+            }
+    
+        }
+}
+function ending() {
+    
+    if(questItems.includes('sunBakedSponge') && questItems.includes('potion') && questItems.includes('lettuce') && questItems.includes('bigTable') && questItems.includes('candy')) {
+        //right
+        if(rightCounter < right[rightCounter].length) {
+            gameScript.innerText = right[rightCounter];
+            rightCounter++;
+            if (gameScript.innerText == 'You punishment is death!!') {
+                window.location.reload(false);
+            }
+        } else {
+            //wrong
+            if(wrongCounter < wrong[wrongCounter].length) {
+                gameScript.innerText = wrong[wrongCounter];
+                wrongCounter++;
+                if (gameScript.innerText == 'Thanks for all your help. You may return now') {
+                    window.location.reload(false);
+                }
+            }
+        }
+    }
+}
 
- };
- function bigFairy() {
-    alert('big')
- };
 
 
 };
 
-//need to check if they have all the items in ending/ else restart
-
+// need to check if they have all the items in ending/ else restart and a function for picking to small
+// one ending - if all items right array else wrong
 // need a new eventlistener that creates 2 buttons, switch arrays based on click
 // add buttons to newButn eventlistener, but hide them until needed - 4 buttons - contuine, return, choice1, choice2
 
@@ -756,7 +832,7 @@ var knife = [
     'After a few minutes of walking to notice something small and colorful',
     'When you get closer you see several of the fairies tables',
     'There are two different sizes. A small set and a big set',
-    'You: Should grad a small one or a big one?'
+    'You: Should grab a small one or a big one?'
     ]
 ]
 var noKnife = [
@@ -771,38 +847,32 @@ var noKnife = [
     'After a few minutes of walking to notice something small and colorful',
     'When you get closer you see several of the fairies tables',
     'There are two different sizes. A small set and a big set',
-    'You: Should grad a small one or a big one?'
+    'You: Should grab a small one or a big one?'
     ]
 ]
 
-// var small = [
-//     ['I\'ll take the small one.',
-//     'Time to head back to the castle']
-// ]
-// var big = [
-//     ['I\'ll take the big one.',
-//     'Time to head back to the castle']
-// ]
+var small = [
+    ['I\'ll take the small one.',
+    'Time to head back to the castle']
+]
+var big = [
+    ['I\'ll take the big one.',
+    'Time to head back to the castle']
+]
 var wrongEnding = [
-    [
-    'I\'ll take the big one.',
-    'Time to head back to the castle'
-    ],
-    [
+   
+    
     'You choose the wrong fairy table.',
     'You tried to kill the Queen',
     'You punishment is death!!'
-    ]
+    
 ]
 var rightEnding = [
-    ['I\'ll take the small one.',
-    'Time to head back to the castle'],
-    ['I see you have returned',
+   
+    'I see you have returned',
     'Give me your bag. I\'ll check to see if you brought everything',
     'You have everything I need to create.....',
     'The queens favorite sandwhich',
     'So glad you did. That witch give\'s me the creeps',
-    'Thanks for all your help. You may return now']
+    'Thanks for all your help. You may return now'
 ]
-
-

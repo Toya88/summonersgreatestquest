@@ -584,21 +584,26 @@ function forest() {
     questItems.push('smallTable');
         $('#butn4').css('visibility','visible');
         $('#butn5').css('visibility','hidden');
-    
         var small = document.getElementById('butn4');
+    
+        small.removeEventListener('click', smallFairy);
+        small.addEventListener('click', smallFairy);
+        
         small.innerText = 'continue';
 
         var smallTable = questItems.indexOf('smallTable')
-        if(smallTable == -1){
+        if(smallTable > -1){
             if(smallCounter < small[smallCounter].length) {
                 gameScript.innerText = small[smallCounter];
                 smallCounter++;       
             } else if (questItems.length <= 5){
                 //left side
+                var small = document.getElementById('butn4');
                 small.removeEventListener('click', smallFairy);
                 small.addEventListener('click', leftSide);
             } else {
                 //ending
+                var small = document.getElementById('butn4');
                 small.removeEventListener('click', smallFairy);
                 small.addEventListener('click', ending);
             }
@@ -611,19 +616,24 @@ function forest() {
         $('#butn5').css('visibility','hidden');
     
         var big = document.getElementById('butn4');
-        small.innerText = 'continue';
+        big.removeEventListener('click', bigFairy);
+        big.addEventListener('click', bigFairy);
+
+        big.innerText = 'continue';
 
         var bigTable = questItems.indexOf('bigTable')
-        if(bigTable == -1){
+        if(bigTable > -1){
             if(bigCounter < big[bigCounter].length) {
                 gameScript.innerText = big[bigCounter];
                 bigCounter++;       
             } else if (questItems.length <= 5){
                 //left side
+                var big = document.getElementById('butn4');
                 big.removeEventListener('click', bigFairy);
                 big.addEventListener('click', leftSide);
             } else {
                 //ending
+                var big = document.getElementById('butn4');
                 big.removeEventListener('click', bigFairy);
                 big.addEventListener('click', ending);
             }

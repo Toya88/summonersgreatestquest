@@ -203,6 +203,7 @@ function see() {
     secondButn.addEventListener('click', clickOutside);
     thirdButn.addEventListener('click', clickKitchen);
     }
+    
  function clickKitchen(){
     $('#butn0').css('visibility','visible');
     $('#butn1').css('visibility','hidden');

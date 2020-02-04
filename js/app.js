@@ -59,11 +59,12 @@ var knifeInnerCounter = 0;
 var knifeOuterCounter = 0;
 var noKnifeInnerCounter = 0;
 var noKnifeOuterCounter = 0;
-var fairyCounter = 0;
-var wrongInnerCounter = 0;
-var wrongInnerCounter = 0;
-var rightOuterCounter = 0;
-var rightOuterCounter = 0;
+var smallCounter = 0;
+var bigCounter = 0;
+var wrongCounter = 0;
+// var wrongInnerCounter = 0;
+var rightCounter = 0;
+// var rightOuterCounter = 0;
 
 var questItems = [];
 
@@ -149,8 +150,8 @@ function see() {
             console.log(counterOuter); 
             console.log(counterInner);
             gameScript.innerText = textArr[counterOuter][counterInner];
-            img.src = images[counterOuter]
-            
+            img.src = images[counterOuter];
+             
         } 
         
         //remove so clickcounter can bd called anywhere - turn eventlisiten with 
@@ -203,10 +204,12 @@ function see() {
 
         }
     }
-    
+
     function firstDecision() {
-       
-        let getWindow = document.getElementById('window');
+        var img = document.getElementById('img');
+        img.src = fimages[0];
+        
+    let getWindow = document.getElementById('window');
     getWindow.setAttribute('class', 'window');
     gameScript.innerText = 'Should I check the kitchen or go outside?';
     $('#butn0').css('visibility','hidden');
@@ -224,6 +227,8 @@ function see() {
     thirdButn.addEventListener('click', clickKitchen);
     }
  function clickKitchen(){
+    var img = document.getElementById('img');
+    img.src = fimages[0];
     $('#butn0').css('visibility','visible');
     $('#butn1').css('visibility','hidden');
     $('#butn2').css('visibility','hidden');
@@ -232,29 +237,39 @@ function see() {
      next.addEventListener('click', clickKitchen2);
     }
     function clickKitchen2() {
-        if(kitchenInnerCounter < kitchen[kitchenOuterCounter].length - 1){        
+        if(kitchenInnerCounter < kitchen[kitchenOuterCounter].length){        
             gameScript.innerText = kitchen[kitchenOuterCounter][kitchenInnerCounter];
             kitchenInnerCounter++;
         }
         else {    
+            kitchenOuterCounter ++;
+            kitchenInnerCounter = 0;
+         if(kitchenOuterCounter < kitchen.length){
             gameScript.innerText = kitchen[kitchenOuterCounter][kitchenInnerCounter];
+            img.src = fimages[kitchenOuterCounter];
         //image here if you want it
         questItems.push('candy');
         $('#butn0').css('visibility','hidden');
         $('#butn1').css('visibility','visible');
         next.removeEventListener('click', clickKitchen2);
         }
-        
+    }  
     }
 
  function clickOutside(){
        $('#butn0').css('visibility','visible');
     $('#butn1').css('visibility','hidden');
     $('#butn2').css('visibility','hidden');
+    var remove = document.getElementById('butn2');
+    remove.removeEventListener('click', clickOutside);
+
+    var next = document.getElementById('butn0');
     next.addEventListener('click', clickOutside);
     var haveCandy = questItems.indexOf("candy");
 
 if(haveCandy > -1){
+    var img = document.getElementById('img');
+    img.src = oimages[0];
 
     if(outsideInnerCounter <= outside[outsideOuterCounter].length - 1){        
         gameScript.innerText = outside[outsideOuterCounter][outsideInnerCounter];
@@ -266,9 +281,12 @@ if(haveCandy > -1){
          if(outsideOuterCounter < outside.length - 1){
          gameScript.innerText = outside[outsideOuterCounter][outsideInnerCounter];
          outsideInnerCounter++;
+         img.src = oimages[kitchenOuterCounter];
         }
         else{
-            //next step
+            var img = document.getElementById('img');
+            img.src = wimages[0];
+
             gameScript.innerText = outside[outsideOuterCounter][outsideInnerCounter];
             $('#butn0').css('visibility','hidden');
             $('#butn1').css('visibility','visible');
@@ -283,9 +301,8 @@ if(haveCandy > -1){
             thirdButn.addEventListener('click', rightSide);
         }
      }
-    }
-    else{
-        if(outsideInnerCounter <= outsideWrong[outsideOuterCounter].length - 1){        
+    }else{
+        if(outsideInnerCounter < outsideWrong[outsideOuterCounter].length - 1){        
             gameScript.innerText = outsideWrong[outsideOuterCounter][outsideInnerCounter];
             outsideInnerCounter++;
          }
@@ -295,8 +312,9 @@ if(haveCandy > -1){
              if(outsideOuterCounter < outsideWrong.length - 1){
              gameScript.innerText = outsideWrong[outsideOuterCounter][outsideInnerCounter];
              outsideInnerCounter++;
+             img.src = wimages[kitchenOuterCounter];
             }
-            else{
+                 else{
                 //next step
                 // gameScript.innerText = outsideWrong[outsideOuterCounter][outsideInnerCounter];
                 $('#butn0').css('visibility','hidden');
@@ -316,9 +334,19 @@ if(haveCandy > -1){
  }
  function leftSide(){
     //  alert("leftSide")
+    var img = document.getElementById('img');
+    img.src = limages[0];
+    
     $('#butn0').css('visibility','visible');
     $('#butn1').css('visibility','hidden');
     $('#butn2').css('visibility','hidden');
+    var next = document.getElementById('butn0');
+    next.removeEventListener('click', gloves);
+    
+    var remove = document.getElementById('butn2');
+    remove.removeEventListener('click', bigFairy);
+
+
     var haveGloves = questItems.indexOf('gloves');
     next.removeEventListener('click', clickOutside);
     next.addEventListener('click', leftSide);
@@ -328,6 +356,7 @@ if(haveCandy > -1){
         if (leftInnerCounter < leftPath[leftOuterCounter].length) {
             gameScript.innerText = leftPath[leftOuterCounter][leftInnerCounter];
             leftInnerCounter++;
+            img.src = limages[kitchenOuterCounter];
         }else{
             
             $('#butn0').css('visibility','hidden');
@@ -336,14 +365,14 @@ if(haveCandy > -1){
 
             var secondButn = document.getElementById('butn1');
             secondButn.removeEventListener('click', leftSide);
-        secondButn.innerText = 'Use hands';
-        secondButn.addEventListener('click', death);
+            secondButn.innerText = 'Use hands';
+            secondButn.addEventListener('click', death);
 
-        var thirdButn = document.getElementById('butn2');
-        thirdButn.innerText = 'Use gloves';
-        thirdButn.removeEventListener('click', rightSide);
-        thirdButn.addEventListener('click', gloves);
-        console.log(leftInnerCounter);
+            var thirdButn = document.getElementById('butn2');
+            thirdButn.innerText = 'Use gloves';
+            thirdButn.removeEventListener('click', rightSide);
+            thirdButn.addEventListener('click', gloves);
+            console.log(leftInnerCounter);
 
         }
 
@@ -373,6 +402,9 @@ if(haveCandy > -1){
  
 function death() {
     //bitchyoudead
+    var img = document.getElementById('img');
+    img.src = dimages[0];
+    
     event.preventDefault();
     $('#butn0').css('visibility','visible');
     $('#butn1').css('visibility','hidden');
@@ -387,7 +419,8 @@ function death() {
     // deathOuterCounter > bitchYouDead[deathOuterCounter].length
     if (deathOuterCounter < bitchYouDead[deathOuterCounter].length) {
         gameScript.innerText = bitchYouDead[deathOuterCounter];
-        deathOuterCounter++;       
+        deathOuterCounter++;   
+        img.src = dimages[kitchenOuterCounter];    
     } 
     if(gameScript.innerText == 'I\'m Burning!!!! WWWHHHHYYYYY!!'){
         window.location.reload(false);
@@ -396,6 +429,9 @@ function death() {
     
 };
 function gloves() {
+    var img = document.getElementById('img');
+    img.src = gimages[0];
+    
     $('#butn0').css('visibility','visible');
     $('#butn1').css('visibility','hidden');
     $('#butn2').css('visibility','hidden');
@@ -409,6 +445,7 @@ function gloves() {
         if (hasGlovesCounter <= hasGloves[hasGlovesCounter].length) {
             gameScript.innerText = hasGloves[hasGlovesCounter];
             hasGlovesCounter++;
+            img.src = gimages[kitchenOuterCounter];
             console.log('here');
 
             if (gameScript.innerText == 'Should I go foward or back up the hill?' ) {
@@ -450,6 +487,8 @@ function forest() {
     var hasShirt = questItems.indexOf('shirt');
 
     if (hasShirt > -1) {
+        var img = document.getElementById('img');
+        img.src = pimages[0];
         if (potionInnerCounter < potion[potionOuterCounter].length) {
             gameScript.innerText = potion[potionOuterCounter][potionInnerCounter];
             potionInnerCounter++;
@@ -459,7 +498,8 @@ function forest() {
             if (potionOuterCounter < potion.length) {
                 gameScript.innerText = potion[potionOuterCounter][potionInnerCounter];
                 potionInnerCounter++;
-            } else if (questItems.length <= 4){
+                img.src = pimages[kitchenOuterCounter];
+            } else if (questItems.length <= 6){
                 questItems.push('potion');
                 $('#butn0').css('visibility','hidden');
                 $('#butn2').css('visibility','visible'); 
@@ -469,7 +509,7 @@ function forest() {
                 right.removeEventListener('click', clickOutside);       
                 right.addEventListener('click', rightSide);
             } else {
-                alert('ending')
+                // alert('ending')
                 //ending
                 right.removeEventListener('click', clickOutside);       
                 right.addEventListener('click', ending);
@@ -477,7 +517,8 @@ function forest() {
         }
         
     } else {
-        
+        var img = document.getElementById('img');
+         img.src = nimages[0];
         if (noPotionInnerCounter < noPotion[noPotionOuterCounter].length) {
             gameScript.innerText = noPotion[noPotionOuterCounter][noPotionInnerCounter];
             noPotionInnerCounter++;
@@ -487,7 +528,8 @@ function forest() {
             if (noPotionOuterCounter < noPotion.length) {
                 gameScript.innerText = noPotion[noPotionOuterCounter][noPotionInnerCounter];
                 noPotionInnerCounter++;
-            } else if (questItems.length <= 5) {
+                img.src = nimages[kitchenOuterCounter];
+            } else if (questItems.length <= 6) {
                 console.log(questItems);
                 
                 $('#butn0').css('visibility','hidden');
@@ -508,21 +550,26 @@ function forest() {
 }
 
  function rightSide(){
+    
+    
     $('#butn0').css('visibility','visible');
-    // $('#butn1').css('visibility','hidden');
+    $('#butn1').css('visibility','hidden');
     $('#butn2').css('visibility','hidden');
-    // $('#butn3').css('visibility','hidden');
-
+    $('#butn3').css('visibility','hidden');
+    //clickOutside
     var right = document.getElementById('butn2');
     var next = document.getElementById('butn0');
     // var third = document.getElementById('butn3');
-    right.removeEventListener('click', rightSide);
+    next.removeEventListener('click', clickOutside);
     next.removeEventListener('click', forest);
+    next.removeEventListener('click', gloves);
     next.addEventListener('click', rightSide);
     var hasKnife = questItems.indexOf('knife');
 
     //run knife else, run n knife
     if (hasKnife > -1) {
+        var img = document.getElementById('img');
+    img.src = rimages[0];
         if (knifeInnerCounter < knife[knifeOuterCounter].length) {
             gameScript.innerText = knife[knifeOuterCounter][knifeInnerCounter];
             knifeInnerCounter++;
@@ -532,15 +579,17 @@ function forest() {
             if (knifeOuterCounter < knife.length) {
                 gameScript.innerText = knife[knifeOuterCounter][knifeInnerCounter];
                 knifeInnerCounter++;
+                img.src = kimages[kitchenOuterCounter];
             } else {
                 questItems.push('lettuce');
                 $('#butn0').css('visibility','hidden');
-                $('#butn4').css('visibility','visible');
-                $('#butn5').css('visibility','visible'); 
+                $('#butn2').css('visibility','visible');
+                $('#butn3').css('visibility','visible'); 
                 
-                var big = document.getElementById('butn4');
-                var small = document.getElementById('butn5');
-
+                var big = document.getElementById('butn2');
+                var small = document.getElementById('butn3');
+                small.removeEventListener('click', rightSide);
+                big.removeEventListener('click', forest);
                 big.addEventListener('click', bigFairy);
                 big.innerText = 'Choose Big Fairy Table';
                 small.addEventListener('click', smallFairy);
@@ -549,7 +598,8 @@ function forest() {
         }
         
     } else {
-        
+        var img = document.getElementById('img');
+        img.src = knimages[0];
         if (noKnifeInnerCounter < noKnife[noKnifeOuterCounter].length) {
             gameScript.innerText = noKnife[noKnifeOuterCounter][noKnifeInnerCounter];
             noKnifeInnerCounter++;
@@ -559,18 +609,20 @@ function forest() {
             if (noKnifeOuterCounter < noKnife.length) {
                 gameScript.innerText = noKnife[noKnifeOuterCounter][noKnifeInnerCounter];
                 noKnifeInnerCounter++;
+                img.src = knimages[kitchenOuterCounter];
             } else {
                 $('#butn0').css('visibility','hidden');
-                $('#butn4').css('visibility','visible');
-                $('#butn5').css('visibility','visible'); 
+                $('#butn2').css('visibility','visible');
+                $('#butn3').css('visibility','visible'); 
                 
-                var small = document.getElementById('butn4');
-                var big = document.getElementById('butn5');
-
-                small.addEventListener('click', smallFairy);
-                small.innerText = 'Choose small Fairy Table';
+                var big = document.getElementById('butn2');
+                var small = document.getElementById('butn3');
+                small.removeEventListener('click', rightSide);
+                big.removeEventListener('click', forest);
                 big.addEventListener('click', bigFairy);
                 big.innerText = 'Choose Big Fairy Table';
+                small.addEventListener('click', smallFairy);
+                small.innerText = 'Choose Small Fairy Table';
             }
         }
     }
@@ -581,83 +633,148 @@ function forest() {
 
 //move where items are pushed
  function smallFairy() {
+    var img = document.getElementById('img');
+    img.src = simages[0];
+    img.src = simages[kitchenOuterCounter];
     questItems.push('smallTable');
-        $('#butn4').css('visibility','visible');
-        $('#butn5').css('visibility','hidden');
-        var small = document.getElementById('butn4');
+        $('#butn2').css('visibility','hidden');
+        $('#butn3').css('visibility','visible');
+        var small = document.getElementById('butn3');
     
         small.removeEventListener('click', smallFairy);
         small.addEventListener('click', smallFairy);
         
         small.innerText = 'continue';
 
-        var smallTable = questItems.indexOf('smallTable')
+        var smallTable = questItems.indexOf('smallTable');
         if(smallTable > -1){
-            if(smallCounter < small[smallCounter].length) {
-                gameScript.innerText = small[smallCounter];
-                smallCounter++;       
-            } else if (questItems.length <= 5){
-                //left side
-                var small = document.getElementById('butn4');
-                small.removeEventListener('click', smallFairy);
-                small.addEventListener('click', leftSide);
-            } else {
-                //ending
-                var small = document.getElementById('butn4');
-                small.removeEventListener('click', smallFairy);
-                small.addEventListener('click', ending);
-            }
-
+            if(smallCounter < smallT[smallCounter].length) {
+                gameScript.innerText = smallT[smallCounter];
+                smallCounter++; 
+                img.src = simages[kitchenOuterCounter];
+                if (gameScript.innerText == 'I\'ll take the small one.') {
+                    if (questItems.length <= 6){
+                        var left = document.getElementById('butn3');
+                        left.removeEventListener('click', smallFairy);
+                        left.addEventListener('click', leftSide);
+                        left.innerText = 'Go Left';
+                    } else {
+                        //ending
+                        var ending = document.getElementById('butn3');
+                        ending.removeEventListener('click', smallFairy);
+                        ending.addEventListener('click', ending);
+                    }
+                  
+                }
+            // } else {
+            //     //left side
+            //     if (questItems.length <= 6){
+            //     var left = document.getElementById('butn3');
+            //     left.removeEventListener('click', smallFairy);
+            //     left.addEventListener('click', leftSide);
+            //     left.innerText = 'Go Left';
+            // } else {
+            //     //ending
+            //     var ending = document.getElementById('butn3');
+            //     ending.removeEventListener('click', smallFairy);
+            //     ending.addEventListener('click', ending);
+            // }
+        
         }
+    }
  }
     function bigFairy() {
-        questItems.push('bigTable');
-        $('#butn4').css('visibility','visible');
-        $('#butn5').css('visibility','hidden');
+        var img = document.getElementById('img');
+    img.src = bimages[0];
     
-        var big = document.getElementById('butn4');
+        questItems.push('bigTable');
+        $('#butn2').css('visibility','visible');
+        $('#butn3').css('visibility','hidden');
+    
+        var big = document.getElementById('butn2');
         big.removeEventListener('click', bigFairy);
         big.addEventListener('click', bigFairy);
 
         big.innerText = 'continue';
 
-        var bigTable = questItems.indexOf('bigTable')
+        var bigTable = questItems.indexOf('bigTable');
         if(bigTable > -1){
-            if(bigCounter < big[bigCounter].length) {
-                gameScript.innerText = big[bigCounter];
-                bigCounter++;       
-            } else if (questItems.length <= 5){
-                //left side
-                var big = document.getElementById('butn4');
-                big.removeEventListener('click', bigFairy);
-                big.addEventListener('click', leftSide);
-            } else {
-                //ending
-                var big = document.getElementById('butn4');
-                big.removeEventListener('click', bigFairy);
-                big.addEventListener('click', ending);
-            }
+            if(bigCounter < bigT[bigCounter].length) {
+                gameScript.innerText = bigT[bigCounter];
+                bigCounter++;  
+                img.src = bimages[kitchenOuterCounter];     
+                if (gameScript.innerText == 'I\'ll take the big one.'){
+                    if (questItems.length <= 6){
+                        $('#butn3').css('visibility','hidden');
+                        var remove = document.getElementById('butn3');
+                        remove = removeEventListener('click', death);
+                        var big = document.getElementById('butn2');
+                        big.removeEventListener('click', bigFairy);
+                        big.addEventListener('click', leftSide);
+                    } else {
+                        //ending
+                        $('#butn3').css('visibility','hidden');
+                        var remove = document.getElementById('butn3');
+                        remove = removeEventListener('click', death);
+                        var big = document.getElementById('butn2');
+                        big.removeEventListener('click', bigFairy);
+                        big.addEventListener('click', ending);
+                    }
+                }
+        //     } else {
+        //         //left side
+            //     if (questItems.length <= 6){
+            //     var big = document.getElementById('butn2');
+            //     big.removeEventListener('click', bigFairy);
+            //     big.addEventListener('click', leftSide);
+            // } else {
+            //     //ending
+            //     var big = document.getElementById('butn2');
+            //     big.removeEventListener('click', bigFairy);
+            //     big.addEventListener('click', ending);
+            // }
     
-        }
+        // }
+         }
+    }
 }
 function ending() {
     
+    
+    $('#butn0').css('visibility','hidden');
+    $('#butn1').css('visibility','hidden');
+    $('#butn2').css('visibility','hidden');
+    $('#butn3').css('visibility','visible');
+
+    var big = document.getElementById('butn2');
+    big.removeEventListener('click', bigFairy);
+    var end = document.getElementById('butn3');
+    end.removeEventListener('click', smallFairy);
+    end.addEventListener('click', ending);
+    end.innerText = 'continue';
+
     if(questItems.includes('sunBakedSponge') && questItems.includes('potion') && questItems.includes('lettuce') && questItems.includes('bigTable') && questItems.includes('candy')) {
-        //right
-        if(rightCounter < right[rightCounter].length) {
-            gameScript.innerText = right[rightCounter];
+        var img = document.getElementById('img');
+         img.src = reimages[0];
+        //wrong
+        if(rightCounter < rightEnding[rightCounter].length) {
+            gameScript.innerText = rightEnding[rightCounter];
             rightCounter++;
-            if (gameScript.innerText == 'You punishment is death!!') {
+            img.src = reimages[kitchenOuterCounter];
+            if (gameScript.innerText == 'Thanks for all your help. You may return now') {
                 window.location.reload(false);
             }
+        }
+        
         } else {
-            //wrong
-            if(wrongCounter < wrong[wrongCounter].length) {
-                gameScript.innerText = wrong[wrongCounter];
-                wrongCounter++;
-                if (gameScript.innerText == 'Thanks for all your help. You may return now') {
-                    window.location.reload(false);
-                }
+            var img = document.getElementById('img');
+            img.src = weimages[0];
+        if(wrongCounter < wrongEnding[wrongCounter].length) {
+            gameScript.innerText = wrongEnding[wrongCounter];
+            wrongCounter++;
+            img.src = weimages[kitchenOuterCounter];
+            if (gameScript.innerText == 'You punishment is death!!') {
+                window.location.reload(false);
             }
         }
     }
@@ -671,22 +788,34 @@ function ending() {
 // one ending - if all items right array else wrong
 // need a new eventlistener that creates 2 buttons, switch arrays based on click
 // add buttons to newButn eventlistener, but hide them until needed - 4 buttons - contuine, return, choice1, choice2
+var images = [
+    'media/bedroom.jpg',
+    'media/firstcloud.jpg',
+    'media/swirlcloud.jpg',
+    'media/women.jpg',
+    'media/items.jpg',
+    'media/kitchenoutside.jpg',
+    'media/kitchenoutside.jpg'
+]
 
 var storyStart = 
      [
          [
         'Today starts off like any other.',
         'You wake you, shower, get dressed, and head to school.',
-        'While walking after you notice a gray cloud in the sky.',
+        'While walking after you notice a gray cloud in the sky.'
+         ],
+         [
         'You think to yourself, Maybe I\'ll get to see that weird phenomon where it only rains in one spot.',
         'You put your phone in your hand and stare at the cloud in enticaption of the rain.', 
         'After a few minutes you give up and keep waking, but you turn to check the cloud ever few minutes.', 
         'You begin to notice something strange. You ask yourself, is that cloud following me?',
-        'The cloud is definitly following you. And it is getting closer.',
+        'The cloud is definitly following you. And it is getting closer.'
+         ],
+         [
         'You turn and stair and right then the cloud launches a gray funnel at you.',
         'Before you have time to run, you are sucked up into the cloud.', 
-        'The exterme force of the spinning causes you to pass out.',
-        
+        'The exterme force of the spinning causes you to pass out.'
          ],
          [
             'You awaken to a strange women standing in front of you. Before you can ask questions she begins to talk', 
@@ -702,21 +831,23 @@ var storyStart =
          ]
     ]
 
-var images = [
-    'media/gameFonts.png',
-    'media/gameFonts.png',
-    'media/gameFonts.png',
-    'media/gameFonts.png',
-]
 // will i need am image array for each section
 var kitchen = [
-    //kitchen
     [
-        "You look on the table and see small round balls in colorful wrapping",
+        "You look on the table and see small round balls in colorful wrapping"
+    ],
+    [
+        
         'You smell them and they smell sweet',
         'You think "Wow candy from another world! and put a few in your pocket"',
         'There does not seem to be any thing else here. Time to go outside'
     ]
+    
+]
+var fimages = [
+    'media/kitchen.jpg',
+    'media/candy.jpg',
+    'media/candy.jpg'
 ]
 var outside = [
     [
@@ -738,11 +869,25 @@ var outside = [
         'Should I go down the right path or left path?'
     ]
 ]
-
+var oimages = [
+    'media/kitchen.jpg',
+    'media/candy.jpg',
+    'media/candy.jpg'
+]
 var outsideWrong = [
     [
-        'Waste of time'
+        'Hmmm, I can see a little boy playing.',
+        'He seems to be holding something in his hand',
+        'I\'m in a hurry. No time to talk to him'
+    ],
+    [
+        'Should I go down the right path or left path?'
     ]
+]
+var wimages = [
+    'media/kitchen.jpg',
+    'media/candy.jpg',
+    'media/candy.jpg'
 ]
 
 var leftPath = [
@@ -753,7 +898,11 @@ var leftPath = [
         'Look\'s so soft. Should I just grab it or use something?'
     ]
 ]
-
+var limages = [
+    'media/kitchen.jpg',
+    'media/candy.jpg',
+    'media/candy.jpg'
+]
 var bitchYouDead = [
 
     'Ouch it burns. It\'s getting hotter!!',
@@ -764,12 +913,22 @@ var bitchYouDead = [
     'Start Over'
     
 ]
+var dimages = [
+    'media/kitchen.jpg',
+    'media/candy.jpg',
+    'media/candy.jpg'
+]
 var hasGloves = [
     'I\'ll put the gloves on the grab the Sponge',
     'I got the Sun Soaked Sponge',
     'I\'ll put in my bag.',
     'Look\'s like there might be something ahead.',
     'Should I go foward or back up the hill?'
+]
+var gimages = [
+    'media/kitchen.jpg',
+    'media/candy.jpg',
+    'media/candy.jpg'
 ]
 
 var potion = [
@@ -800,7 +959,11 @@ var potion = [
     ]
     
 ]
-
+var pimages = [
+    'media/kitchen.jpg',
+    'media/candy.jpg',
+    'media/candy.jpg'
+]
 var noPotion = [
     [
         'You walk down a path into the lush forest',
@@ -828,7 +991,11 @@ var noPotion = [
     ]
         
 ]
-
+var nimages = [
+    'media/kitchen.jpg',
+    'media/candy.jpg',
+    'media/candy.jpg'
+]
 var knife = [
     ['Wow this field is beautiful.',
     ' Wait is this the Honey Sweet hair of the land?',
@@ -845,6 +1012,11 @@ var knife = [
     'You: Should grab a small one or a big one?'
     ]
 ]
+var kimages = [
+    'media/kitchen.jpg',
+    'media/candy.jpg',
+    'media/candy.jpg'
+]
 var noKnife = [
     ['Wow this field is beautiful.',
     ' Wait is this the Honey Sweet hair of the land?',
@@ -860,14 +1032,29 @@ var noKnife = [
     'You: Should grab a small one or a big one?'
     ]
 ]
-
-var small = [
-    ['I\'ll take the small one.',
-    'Time to head back to the castle']
+var knimages = [
+    'media/kitchen.jpg',
+    'media/candy.jpg',
+    'media/candy.jpg'
 ]
-var big = [
-    ['I\'ll take the big one.',
-    'Time to head back to the castle']
+
+var smallT = [
+    'I guess it does not matter which one I get',
+    'I\'ll take the small one.'
+]
+var simages = [
+    'media/kitchen.jpg',
+    'media/candy.jpg',
+    'media/candy.jpg'
+]
+var bigT = [
+    'I guess it does not matter which one I get',
+    'I\'ll take the big one.'
+]
+var bimages = [
+    'media/kitchen.jpg',
+    'media/candy.jpg',
+    'media/candy.jpg'
 ]
 var wrongEnding = [
    
@@ -877,6 +1064,11 @@ var wrongEnding = [
     'You punishment is death!!'
     
 ]
+var reimages = [
+    'media/kitchen.jpg',
+    'media/candy.jpg',
+    'media/candy.jpg'
+]
 var rightEnding = [
    
     'I see you have returned',
@@ -885,4 +1077,9 @@ var rightEnding = [
     'The queens favorite sandwhich',
     'So glad you did. That witch give\'s me the creeps',
     'Thanks for all your help. You may return now'
+]
+var weimages = [
+    'media/kitchen.jpg',
+    'media/candy.jpg',
+    'media/candy.jpg'
 ]

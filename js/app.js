@@ -66,7 +66,7 @@ var wrongCounter = 0;
 var rightCounter = 0;
 // var rightOuterCounter = 0;
 
-
+//write function to hide and reveal buttons
 
 var questItems = [];
 
@@ -815,32 +815,32 @@ var storyStart =
      [
          [
         'Today starts off like any other.',
-        'You wake you, shower, get dressed, and head to school.',
-        'While walking after you notice a gray cloud in the sky.'
+        'You wake up, shower, get dressed, and head to school.',
+        'While walking you notice a gray cloud in the sky.'
          ],
          [
         'You think to yourself, Maybe I\'ll get to see that weird phenomon where it only rains in one spot.',
         'You put your phone in your hand and stare at the cloud in enticaption of the rain.', 
-        'After a few minutes you give up and keep waking, but you turn to check the cloud ever few minutes.', 
+        'After a few minutes you give up and keep waking, periodically you turn to check the cloud.', 
         'You begin to notice something strange. You ask yourself, is that cloud following me?',
         'The cloud is definitly following you. And it is getting closer.'
          ],
          [
-        'You turn and stair and right then the cloud launches a gray funnel at you.',
+        'You turn around and right then the cloud launches a gray funnel at you.',
         'Before you have time to run, you are sucked up into the cloud.', 
         'The exterme force of the spinning causes you to pass out.'
          ],
          [
             'You awaken to a strange women standing in front of you. Before you can ask questions she begins to talk', 
             'Welcome Hero! We are glad you arrived here safely. Sorry but there is not much time to explain.',
-             'Here is a list of items you must retrieve. All of the items can be found within a 20 meter perimeter of this castle.',
-        'Here is a bag to hold all of the items for your quest. You may choose 3 of these 5 objects to take with you. Choose wisely!'
+            'Here is a list of items you must retrieve. All of the items can be found within a 20 meter perimeter of this castle.',
+            'Here is a bag to hold all of the items for your quest. You may choose 3 of these 5 objects to take with you. Choose wisely!'
          ],
          [
              'Choose 3 items'
          ],
          [
-            'Should I check the kitchen or go outside?'
+            'OK. Well should I check the kitchen or go outside?'
          ]
     ]
 
@@ -851,31 +851,31 @@ var kitchen = [
     ],
     [
         
-        'You smell them and they smell sweet',
-        'You think "Wow candy from another world! and put a few in your pocket"',
+        'You smell them. They smell sweet',
+        'You think "Wow candy from another world! and put a few in your pocket."',
         'There does not seem to be any thing else here. Time to go outside'
     ]
     
 ]
 var fimages = [
     'media/kitchen.jpg',
-    'media/candy.jpg',
+    'media/candy.jpg'
     
 ]
 var outside = [
     [
         'You step outside and see two paths. As you get closer you notice a little boy a the junction of the path.',
         'The little boy speaks to you.',
-        'Hi, my name is Eric.',
-        'Look what I got. OOOHHHH NOOOO!',
-        'I thought it was candy, but this is...',
+        'Eric: Hi, my name is Eric.',
+        'Eric: Look what I got. OOOHHHH NOOOO!',
+        'Eric: I thought it was candy, but this is...',
         'You look at the items in the boys hand and recognize them from the picture',
         'They\'re reaper pepper\'s!',
         'Eric: I thought these were candy. I can\'t eat this.'
     ],
     [
-        'You say to Eric: I have candy. I\'ll trade you for the peppers. ',
-        'Yes, I love candy.',
+        'You: I have candy. I\'ll trade you for the peppers. ',
+        'Eric: Yes, I love candy.',
         'You give Eric the candy and he give\'s you the peppers!'
     ],
     [
@@ -883,7 +883,7 @@ var outside = [
     ]
 ]
 var oimages = [
-    'media/boy.jpg',
+    'media/boy.jpg',+
     'media/peppers.jpg',
     'media/field.jpg'
     
@@ -962,7 +962,7 @@ var potion = [
         'You: Hello, how are you today?',
         'Bloodtide: My my my, What a beautiful creature you are.',
         'You: Umm thank you. Do you know where I could get a Witch\'s Potion',
-        'Bloodtide: Why yes I do ',
+        'Bloodtide: Why yes I do. I have one. ',
         'You: Awesome! Can I a have it?',
         'Bloodtide: But it\'s not free you know',
         'Bloodtide: My what a wonderful and exotic top you have on',
@@ -1022,14 +1022,14 @@ var knife = [
     ['Wow this field is beautiful.',
     ' Wait is this the Honey Sweet hair of the land?',
     'It is! The stock is pretty thick.',
-    'Hmm, to tough. I think I should cut it with something.'],
+    'Hmm, it\'s really tough. I think I should cut it with something.'],
     ['I\'ll use my knife.',
     'So glad I picked it.',
     'Yes, I got it.',
     'One more item checked of the list.'],
     ['You walk futher into the field',
     'After a few minutes of walking to notice something small and colorful',
-    'When you get closer you see several of the fairies tables',
+    'When you get closer you see several fairies tables.',
     'There are two different sizes. A small set and a big set',
     'You: Should grab a small one or a big one?'
     ]
